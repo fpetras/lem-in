@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@students.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/13 06:07:49 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/13 15:56:46 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,90 +57,60 @@ static void
 	}	
 }
 
-static void
-	pf_print_solutions(t_solution *solutions)
-{
-	int i;
-
-	i = 0;
-	while (solutions[i].paths.data)
-	{
-		ft_printf("Solution %d: ", i);
-		fta_printdata_int(solutions[i].paths);
-		ft_printfln("(%d)", solutions[i].weight);
-		i++;
-	}	
-}
-
 int
-	pf_solutions_len(t_solution *solutions)
+	get_min_path(int **routetab, int size, int row, int end)
 {
-	int len;
+	int col;
+	int min;
+	int node;
 
-	len = 0;
-	while (solutions[len].paths.data)
-		len++;
-	return (len);
-}
-
-int		pf_resize_solutiontab(t_solution **solutions, size_t new_size)
-{
-	t_solution	*tmp;
-
-	tmp = (t_solution*)malloc(sizeof(t_solution) * new_size);
-	if (tmp == NULL)
-		return (1);
-	ft_memcpy(tmp, &(**solutions), sizeof(t_solution) * new_size);
-	*solutions = tmp;
-	return (0);
-}
-
-void
-	pf_add_solutiontab(t_solution **solutions, t_solution sol)
-{
-	int len;
-
-	len = pf_solutions_len(*solutions) + 1;
-	pf_resize_solutiontab(solutions, len + 1);
-	(*solutions)[len - 1] = sol;
-	(*solutions)[len] = (t_solution){NEW_ARRAY(int), 0};
-}
-
-void
-	path_finder(int **routingtab, int size, int start, int end)
-{
-	t_solution	*solutions;
-	t_solution	sol;
-	int 		num;
-
-	solutions = (t_solution*)malloc(sizeof(solutions) * 1);
-	solutions[0] = (t_solution){NEW_ARRAY(int), 0};
-
-	int row = start;
-	int col = 0;
+	col = 0;
+	min = size + 1;
+	node = -1;
 	while (col < size)
 	{
-		if (routingtab[row][col] == 1)
+		if (routetab[row][col] == 1 &&
+			routetab[end][col] < min)
 		{
-			sol = (t_solution){NEW_ARRAY(int), 0};
-			num = start;
-			fta_append(&(sol.paths), &num, 1);
-			num = col;
-			sol.weight += 1;
-			fta_append(&(sol.paths), &num, 1);
-			pf_add_solutiontab(&solutions, sol);
+			min = routetab[end][col];
+			node = col;
 		}
 		col++;
 	}
-	pf_print_tab(routingtab, 8, 8);
-	pf_print_solutions(solutions);
+	return (node);
+}
 
+int
+	path_finder(int ***routetab, int size, t_array	*sol, int end)
+{
+	int node;
+	int row;
+	int	temp;
+
+	row = ARRAY_DATA(sol, sol->size - 1);
+	node = get_min_path(*routetab, size, row, end);
+	if (node == end)
+	{
+		fta_append(sol, &node, 1);
+		return (1);
+	}
+	while ((*routetab)[end][node] < size + 1)
+	{
+		fta_append(sol, &node, 1);
+		temp = (*routetab)[end][node];
+		(*routetab)[end][node] = size + 1;
+		if (path_finder(routetab, size, sol, end))
+			return (1);
+		(*routetab)[end][node] = temp;
+		fta_popback(sol, 1);
+	}
+	return (0);
 }
 
 void
 	path_finder_dummy()
 {
-	int	**routingtab;
+	int	**routetab;
 	int	tab[8][8] = {
 		{0, 3, 2, 2, 1, 2, 1, 2},
 		{3, 0, 1, 1, 2, 2, 3, 2},
@@ -149,18 +119,31 @@ void
 		{1, 2, 1, 1, 0, 2, 2, 1},
 		{2, 2, 1, 1, 2, 0, 1, 2},
 		{1, 3, 3, 3, 2, 1, 0, 1},
-		{2, 2, 1, 2, 1, 2, 1, 0}
-		};
+		{2, 2, 1, 2, 1, 2, 1, 0}};
 	int i;
 	int j;
+	t_array	sol;
 
 	i = -1;
-	routingtab = ft_init_tab(8);
+	routetab = ft_init_tab(8);
 	while (++i < 8)
 	{
 		j = -1;
 		while (++j < 8)
-			routingtab[i][j] = tab[i][j];
+			routetab[i][j] = tab[i][j];
 	}
-	path_finder(routingtab, 8, 1, 0);
+	int start = 1;
+	int end = 0;
+
+	sol = NEW_ARRAY(int);
+	fta_append(&sol, &start, 1);
+	pf_print_tab(routetab, 8, 8);
+	while (path_finder(&routetab, 8, &sol, end))
+	{
+		fta_printdata_int(sol);
+		pf_print_tab(routetab, 8, 8);
+		fta_clear(&sol);
+		sol = NEW_ARRAY(int);
+		fta_append(&sol, &start, 1);
+	}
 }

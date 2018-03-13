@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@students.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 09:32:55 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/13 04:33:41 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/13 15:00:39 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # define END	2
 # define ROOM	1
 # define LINK	2
+
+# define ARRAY_DATA(D, I) ((int*)(D)->data)[I]
 
 typedef struct		s_lem_in
 {
