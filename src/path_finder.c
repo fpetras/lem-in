@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@students.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/13 17:34:43 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/13 17:37:21 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,10 @@ int
 	return (node);
 }
 
+/*
+** Does not tolerate any intersections
+*/
+
 int
 	path_finder_1(int ***routetab, int size, t_array	*sol, int end)
 {
@@ -111,6 +115,10 @@ int
 	}
 	return (0);
 }
+
+/*
+** Tolerate intersections but always try to avoid it.
+*/
 
 int
 	path_finder_2(int ***routetab, int size, t_array	*sol, int end)
