@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@students.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/13 16:39:11 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/13 16:55:10 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int
 
 	col = 0;
 	min = size + 1;
-	node = -1;
+	node = size;
 	while (col < size)
 	{
 		if (routetab[row][col] == 1 &&
@@ -95,7 +95,7 @@ int
 		fta_append(sol, &node, 1);
 		return (1);
 	}
-	while ((*routetab)[end][node] < size + 1)
+	while (node < size && (*routetab)[end][node] < size + 1)
 	{
 		fta_append(sol, &node, 1);
 		temp = (*routetab)[end][node];
@@ -121,10 +121,10 @@ int
 		fta_append(sol, &node, 1);
 		return (1);
 	}
-	while ((*routetab)[end][node] < size + 1)
+	while (node < size && (*routetab)[end][node] < size + 1)
 	{
 		fta_append(sol, &node, 1);
-		(*routetab)[row][node] = -1;
+		(*routetab)[row][node] = size + 1;
 		if (path_finder_2(routetab, size, sol, end))
 			return (1);
 		(*routetab)[row][node] = 1;
@@ -159,14 +159,16 @@ void
 			routetab[i][j] = tab[i][j];
 	}
 	int start = 1;
-	int end = 0;
+	int end = 5;
 
 	sol = NEW_ARRAY(int);
 	fta_append(&sol, &start, 1);
+	ft_printfln("First Algorithm:");
+	pf_print_tab(routetab, 8, 8);
 	while (path_finder_1(&routetab, 8, &sol, end))
 	{
-		pf_print_tab(routetab, 8, 8);
 		fta_printdata_int(sol);
+		pf_print_tab(routetab, 8, 8);
 		fta_clear(&sol);
 		sol = NEW_ARRAY(int);
 		fta_append(&sol, &start, 1);
@@ -182,10 +184,12 @@ void
 	fta_clear(&sol);
 	sol = NEW_ARRAY(int);
 	fta_append(&sol, &start, 1);
+	ft_printfln("Second Algorithm:");
+	pf_print_tab(routetab, 8, 8);
 	while (path_finder_2(&routetab, 8, &sol, end))
 	{
-		pf_print_tab(routetab, 8, 8);
 		fta_printdata_int(sol);
+		pf_print_tab(routetab, 8, 8);
 		fta_clear(&sol);
 		sol = NEW_ARRAY(int);
 		fta_append(&sol, &start, 1);
