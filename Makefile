@@ -3,43 +3,92 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fpetras <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: rnugroho <rnugroho@students.42.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/02/14 07:55:11 by fpetras           #+#    #+#              #
-#    Updated: 2018/03/12 11:03:33 by fpetras          ###   ########.fr        #
+#    Created: 2016/11/01 20:07:00 by rnugroho          #+#    #+#              #
+#    Updated: 2018/03/13 02:13:38 by rnugroho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = lem-in
+NAME:= lem-in
+FILES:= main \
+		validation \
+		validation2 \
+		data_processing \
+		utilities \
+		utilities2 \
+		free
 
-SRC = main.c \
-	  validation.c \
-	  validation2.c \
-	  data_processing.c \
-	  utilities.c \
-	  utilities2.c \
-	  free.c
+# ----- Libft ------
+LFTDIR:=./libft
+# ==================
 
-OBJ = $(SRC:.c=.o)
+# ------------------
+COMPILER:=clang
+SRCPATH:=src/
+HDRPATH:=include/
+CCHPATH:=obj/
+IFLAGS:=-I $(HDRPATH) -I $(LFTDIR)/include
+LFLAGS:=-L $(LFTDIR) -lft
+CFLAGS:=-Wall -Wextra $(IFLAGS)
+# ==================
 
-CC = gcc
+# ----- Colors -----
+BLACK:="\033[1;30m"
+RED:="\033[1;31m"
+GREEN:="\033[1;32m"
+CYAN:="\033[1;35m"
+PURPLE:="\033[1;36m"
+WHITE:="\033[1;37m"
+EOC:="\033[0;0m"
+# ==================
 
-FLAGS = -Wall -Werror -Wextra
+# ------ Auto ------
+SRC:=$(addprefix $(SRCPATH),$(addsuffix .c,$(FILES)))
+OBJ:=$(addprefix $(CCHPATH),$(addsuffix .o,$(FILES)))
+# ==================
+CCHF:=.cache_exists
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@make -C libft
-	@$(CC) $(FLAGS) -o $(NAME) $(OBJ) libft/libft.a
+	@cd $(LFTDIR) && $(MAKE)
+	@echo $(CYAN) " - Compiling $@" $(RED)
+	@$(COMPILER) $(CFLAGS) $(SRC) $(LFLAGS) -o $(NAME)
+	@echo $(GREEN) " - OK" $(EOC)
+
+$(CCHPATH)%.o: $(SRCPATH)%.c | $(CCHF)
+	@echo $(PURPLE) " - Compiling $< into $@" $(EOC)
+	@$(COMPILER) $(CFLAGS) -c $< -o $@
+
+%.c:
+	@echo $(RED)"Missing file : $@" $(EOC)
+
+$(CCHF):
+	@mkdir $(CCHPATH)
+	@touch $(CCHF)
 
 clean:
-	@make clean -C libft
-	@rm -f $(OBJ)
+	@rm -rf $(CCHPATH)
+	@rm -f $(CCHF)
+	@cd $(LFTDIR) && $(MAKE) clean
 
 fclean: clean
-	@make fclean -C libft
 	@rm -f $(NAME)
+	@rm -rf $(NAME).dSYM/
+	@cd $(LFTDIR) && $(MAKE) fclean
 
-re: fclean all
+re: fclean
+	@$(MAKE) all
 
-.PHONY: all clean fclean re
+debug: $(NAME)
+	@echo "Files :" $(FILES)
+	@$(COMPILER) -g $(IFLAGS) $(SRC) $(LFLAGS) -o $(NAME)
+
+norm:
+	@echo $(RED)
+	@norminette $(SRC) $(HDRPATH) | grep -v	Norme -B1 || true
+	@echo $(END)
+	@cd $(LFTDIR) && $(MAKE) norm
+
+.PHONY: all clean fclean re test norme
