@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@students.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/13 18:03:51 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/13 21:04:53 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int
 */
 
 int
-	path_finder_1(int ***routetab, int size, t_array	*sol, int end)
+	path_finder_1(int ***routetab, int size, t_array *sol, int end)
 {
 	int node;
 	int row;
@@ -136,7 +136,7 @@ int
 */
 
 int
-	path_finder_2(int ***routetab, int size, t_array	*sol, int end)
+	path_finder_2(int ***routetab, int size, t_array *sol, int end)
 {
 	int node;
 	int row;

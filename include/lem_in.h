@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@students.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 09:32:55 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/13 18:41:00 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/13 21:03:35 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,6 @@ void				ft_free_struct(t_lem_in *l);
 
 void				path_finder_dummy();
 void				print_map_dummy();
+
+int					**ft_init_tab(int size);
 #endif
