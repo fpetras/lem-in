@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@students.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/13 16:55:10 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/13 17:34:43 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int
 	int node;
 	int row;
 	int	temp;
+	int t_node;
 
 	row = ARRAY_DATA(sol, sol->size - 1);
 	node = get_min_path(*routetab, size, row, end);
@@ -95,15 +96,18 @@ int
 		fta_append(sol, &node, 1);
 		return (1);
 	}
-	while (node < size && (*routetab)[end][node] < size + 1)
+	while (node < size && (*routetab)[end][node] < size + 1 &&
+		node != ARRAY_DATA(sol, 0))
 	{
 		fta_append(sol, &node, 1);
 		temp = (*routetab)[end][node];
 		(*routetab)[end][node] = size + 1;
 		if (path_finder_1(routetab, size, sol, end))
 			return (1);
-		(*routetab)[end][node] = temp;
 		fta_popback(sol, 1);
+		t_node = node;
+		node = get_min_path(*routetab, size, row, end);
+		(*routetab)[end][t_node] = temp;
 	}
 	return (0);
 }
@@ -113,6 +117,7 @@ int
 {
 	int node;
 	int row;
+	int t_node;
 
 	row = ARRAY_DATA(sol, sol->size - 1);
 	node = get_min_path(*routetab, size, row, end);
@@ -127,8 +132,11 @@ int
 		(*routetab)[row][node] = size + 1;
 		if (path_finder_2(routetab, size, sol, end))
 			return (1);
-		(*routetab)[row][node] = 1;
 		fta_popback(sol, 1);
+		t_node = node;
+		//update routing table
+		node = get_min_path(*routetab, size, row, end);
+		(*routetab)[row][t_node] = 1;
 	}
 	return (0);
 }
@@ -159,7 +167,7 @@ void
 			routetab[i][j] = tab[i][j];
 	}
 	int start = 1;
-	int end = 5;
+	int end = 0;
 
 	sol = NEW_ARRAY(int);
 	fta_append(&sol, &start, 1);
