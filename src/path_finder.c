@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@students.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/13 17:37:21 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/13 17:59:17 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,21 @@ int
 	return (node);
 }
 
+int
+	in_solutions(t_array *sol, int node)
+{
+	int i;
+
+	i = 0;
+	while (i < (int)sol->size)
+	{
+		if (ARRAY_DATA(sol, i) == node)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 /*
 ** Does not tolerate any intersections
 */
@@ -101,7 +116,7 @@ int
 		return (1);
 	}
 	while (node < size && (*routetab)[end][node] < size + 1 &&
-		node != ARRAY_DATA(sol, 0))
+		!in_solutions(sol, node))
 	{
 		fta_append(sol, &node, 1);
 		temp = (*routetab)[end][node];
@@ -159,8 +174,8 @@ void
 		{2, 1, 0, 2, 1, 1, 2, 1},
 		{2, 1, 2, 0, 1, 1, 2, 2},
 		{1, 2, 1, 1, 0, 2, 2, 1},
-		{2, 2, 1, 1, 2, 0, 1, 2},
-		{1, 3, 3, 3, 2, 1, 0, 1},
+		{2, 2, 1, 1, 2, 0, 3, 2},
+		{1, 3, 3, 3, 2, 3, 0, 1},
 		{2, 2, 1, 2, 1, 2, 1, 0}};
 	int i;
 	int j;
