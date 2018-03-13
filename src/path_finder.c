@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@students.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/13 15:56:46 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/13 16:09:21 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ static void
 		j = -1;
 		ft_printf("%*w%d%w ", RED, i);
 		while (++j < col)
-			ft_printf("%d ", tab[i][j]);
+			ft_printf("%*w%d%w ", (tab[i][j] == 1 ? GREEN : EOF),
+				tab[i][j]);
 		ft_printf("\n");
 		i++;
 	}	
