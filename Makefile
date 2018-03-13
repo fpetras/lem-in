@@ -6,7 +6,7 @@
 #    By: rnugroho <rnugroho@students.42.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/01 20:07:00 by rnugroho          #+#    #+#              #
-#    Updated: 2018/03/13 02:13:38 by rnugroho         ###   ########.fr        #
+#    Updated: 2018/03/13 03:32:09 by rnugroho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ FILES:= main \
 		data_processing \
 		utilities \
 		utilities2 \
-		free
+		free \
+		path_finder
 
 # ----- Libft ------
 LFTDIR:=./libft
@@ -84,6 +85,11 @@ re: fclean
 debug: $(NAME)
 	@echo "Files :" $(FILES)
 	@$(COMPILER) -g $(IFLAGS) $(SRC) $(LFLAGS) -o $(NAME)
+
+test: $(NAME)
+	@echo "Files :" $(FILES)
+	@$(COMPILER) -g $(IFLAGS) $(SRC) $(LFLAGS) -o $(NAME)
+	@./lem-in < 8.map
 
 norm:
 	@echo $(RED)
