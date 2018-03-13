@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@students.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:14:31 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/13 21:08:51 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/14 00:42:03 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 #define W 100
 #define H 30
-#define gotoxy(x,y) ft_printf("\033[%d;%dH", (y), (x))
-#define clear() ft_printf("\033[H\033[J")
 
 void
 	print_line(t_node l1, t_node l2, int color)
@@ -32,8 +30,7 @@ void
 		while (col < a.col)
 		{
 			row = b.row + (a.row - b.row) * (col - b.col) / (a.col - b.col);
-			gotoxy(col, row);
-			ft_printf("%*w.%w", color);
+			ft_printf("%*.*v%*w.%w", row, col, color);
 			col++;
 		}
 	else
@@ -43,8 +40,7 @@ void
 		row = b.row;
 		while (row < a.row)
 		{
-			gotoxy(col, row);
-			ft_printf("%*w.%w", color);
+			ft_printf("%*.*v%*w.%w", row, col, color);
 			row++;
 		}
 	}
@@ -99,7 +95,7 @@ int
 }
 
 t_node
-	*scale_map(t_node *nodes, size)
+	*scale_map(t_node *nodes, int size)
 {
 	t_node *d_nodes;
 	int i;
@@ -123,23 +119,22 @@ void
 	int j;
 
 	nodes = scale_map(nodes, size);
-	clear();
+	ft_printf("\033[H\033[J");
 	i = -1;
 	while (++i < size)
 	{
 		j = -1;
 		while (++j < size)
-			if (routetab[i][j] == 1)
-				print_line(nodes[i], nodes[j], EOC);
+			if (routetab[i][j] >= 1)
+				print_line(nodes[i], nodes[j], routetab[i][j] - 1);
 	}
 	i = 0;
 	while (i < 8)
 	{
-		gotoxy(nodes[i].col, nodes[i].row);
-		ft_printf("%*W%s%w", GREEN, nodes[i].name);
+		ft_printf("%*.*v%*W%s%w", nodes[i].row, nodes[i].col, GREEN, nodes[i].name);
 		i++;
 	}
-	gotoxy(W, H);
+	ft_printf("%*.*v", H, W);
 }
 
 void
@@ -167,10 +162,12 @@ void
 	{
 		j = -1;
 		while (++j < size)
+		if (tab[i][j] == 1)
 			routetab[i][j] = tab[i][j];
+		else
+			routetab[i][j] = 0;
 	}
 	nodes = (t_node*)malloc(sizeof(t_node) * size);
-	
 	nodes[1] = (t_node){1, "1", 23, 3};
 	nodes[2] = (t_node){2, "2", 16, 7};
 	nodes[3] = (t_node){3, "3", 16, 3};
@@ -179,6 +176,5 @@ void
 	nodes[6] = (t_node){6, "6", 1, 5};
 	nodes[7] = (t_node){7, "7", 4, 8};
 	nodes[0] = (t_node){0, "0", 9, 5};
-
 	print_map(nodes, routetab, size);
 }
