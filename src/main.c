@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@students.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 09:34:58 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/13 03:51:16 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/13 18:33:49 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,8 @@ int		main(int ac, char **av)
 	// 	ft_dprintf(2, "ERROR\n");
 	// else
 		// ft_print_tab(map);
-	path_finder_dummy();
+	// path_finder_dummy();
+	print_map_dummy();
 	// ft_free_tab(map);
 	// ft_free_struct(&l);
 	return (0);

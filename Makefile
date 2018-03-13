@@ -6,7 +6,7 @@
 #    By: rnugroho <rnugroho@students.42.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/01 20:07:00 by rnugroho          #+#    #+#              #
-#    Updated: 2018/03/13 16:10:43 by rnugroho         ###   ########.fr        #
+#    Updated: 2018/03/13 20:10:32 by rnugroho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ FILES:= main \
 		utilities \
 		utilities2 \
 		free \
-		path_finder
+		path_finder \
+		map_visualizer
 
 # ----- Libft ------
 LFTDIR:=./libft
@@ -87,7 +88,6 @@ debug: $(NAME)
 	@$(COMPILER) -g $(IFLAGS) $(SRC) $(LFLAGS) -o $(NAME)
 
 test: $(NAME)
-	@echo "Files :" $(FILES)
 	@$(COMPILER) -g $(IFLAGS) $(SRC) $(LFLAGS) -o $(NAME)
 	@./lem-in < resources/7.map
 

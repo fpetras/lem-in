@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@students.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 09:32:55 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/13 15:00:39 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/13 18:41:00 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,14 @@ typedef struct		s_solution
 	int				weight;
 }					t_solution;
 
+typedef struct		s_node
+{
+	int				index;
+	char			*name;
+	int				col;
+	int				row;
+}					t_node;
+
 int					ft_get_data(char **map, t_lem_in *l);
 
 int					ft_check_empty_lines(char *file);
@@ -66,4 +74,5 @@ void				ft_free_tab(char **tab);
 void				ft_free_struct(t_lem_in *l);
 
 void				path_finder_dummy();
+void				print_map_dummy();
 #endif
