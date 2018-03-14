@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@students.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:14:31 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/14 03:00:03 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/14 03:43:54 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,13 +225,13 @@ void
 			routetab[i][j] = 0;
 	}
 	nodes = (t_node*)malloc(sizeof(t_node) * size);
-	nodes[1] = (t_node){1, "1", 23, 3};
+	nodes[1] = (t_node){1, "1", 23, 5};
 	nodes[2] = (t_node){2, "2", 16, 7};
 	nodes[3] = (t_node){3, "3", 16, 3};
 	nodes[4] = (t_node){4, "4", 16, 5};
 	nodes[5] = (t_node){5, "5", 9, 3};
 	nodes[6] = (t_node){6, "6", 1, 5};
-	nodes[7] = (t_node){7, "7", 4, 8};
+	nodes[7] = (t_node){7, "7", 4, 7};
 	nodes[0] = (t_node){0, "0", 9, 5};
 
 	cmds = (char**)malloc(sizeof(char*) * 8);
