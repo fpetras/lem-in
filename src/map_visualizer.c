@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@students.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:14:31 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/14 02:51:16 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/14 03:00:03 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ void
 		while (col < a.col)
 		{
 			row = b.row + (a.row - b.row) * (col - b.col) / (a.col - b.col);
-			ft_printf("%*.*v%*w.%w", row, col, color);
-			col++;
+			ft_printf("%*.*v%*w.%w", row, col++, color);
 		}
 	else
 	{
@@ -39,10 +38,7 @@ void
 		b = (l1.row < l2.row ? l1 : l2);
 		row = b.row;
 		while (row < a.row)
-		{
-			ft_printf("%*.*v%*w.%w", row, col, color);
-			row++;
-		}
+			ft_printf("%*.*v%*w.%w", row++, col, color);
 	}
 }
 
@@ -138,15 +134,6 @@ void
 }
 
 int
-	mv_get_node(char *cmd)
-{
-	int value;
-
-	value = ft_atoi(cmd);
-	return (value);
-}
-
-int
 	mv_get_prev_node(char **cmd, int i, int j, int start)
 {
 	char **icmds;
@@ -158,7 +145,7 @@ int
 		icmds = ft_strsplit(cmd[i - 1], ' ');
 		if (j >= ft_wordcounter(cmd[i - 1], ' '))
 			j = 0;
-		return (mv_get_node(icmds[j]));
+		return (ft_atoi(icmds[j]));
 	}
 }
 
@@ -264,7 +251,7 @@ void
 		while (j < ft_wordcounter(cmds[i], ' '))
 		{
 			node1 = mv_get_prev_node(cmds, i, j, 1);
-			node2 = mv_get_node(icmds[j]);
+			node2 = ft_atoi(icmds[j]);
 			color_map(&routetab, size, node1, node2);
 			j++;
 		}
