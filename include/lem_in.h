@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnugroho <rnugroho@students.42.fr>         +#+  +:+       +#+        */
+/*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 09:32:55 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/14 01:22:10 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/14 15:35:30 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,6 @@ typedef struct		s_lem_in
 	char			**rooms;
 	char			**links;
 }					t_lem_in;
-
-typedef struct		s_solution
-{
-	t_array			paths;
-	int				weight;
-}					t_solution;
 
 typedef struct		s_node
 {

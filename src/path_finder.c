@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_finder.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnugroho <rnugroho@students.42.fr>         +#+  +:+       +#+        */
+/*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/14 01:22:12 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/14 15:38:20 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void
 				tab[i][j]);
 		ft_printf("\n");
 		i++;
-	}	
+	}
 }
 
 int
@@ -104,12 +104,10 @@ int
 	path_finder_1(int ***routetab, int size, t_array *sol, int end)
 {
 	int node;
-	int row;
 	int	temp;
 	int t_node;
 
-	row = ARRAY_DATA(sol, sol->size - 1);
-	node = get_min_path(*routetab, size, row, end);
+	node = get_min_path(*routetab, size, ARRAY_DATA(sol, sol->size - 1), end);
 	if (node == end)
 	{
 		fta_append(sol, &node, 1);
@@ -125,7 +123,8 @@ int
 			return (1);
 		fta_popback(sol, 1);
 		t_node = node;
-		node = get_min_path(*routetab, size, row, end);
+		node = get_min_path(*routetab, size,
+				ARRAY_DATA(sol, sol->size - 1), end);
 		(*routetab)[end][t_node] = temp;
 	}
 	return (0);
@@ -167,8 +166,8 @@ int
 void
 	path_finder_dummy()
 {
-	int	**routetab;
-	int	tab[8][8] = {
+	int			**routetab;
+	const int	tab[8][8] = {
 		{0, 3, 2, 2, 1, 2, 1, 2},
 		{3, 0, 1, 1, 2, 2, 3, 2},
 		{2, 1, 0, 2, 1, 1, 2, 1},
@@ -177,9 +176,9 @@ void
 		{2, 2, 1, 1, 2, 0, 1, 2},
 		{1, 3, 3, 3, 2, 1, 0, 1},
 		{2, 2, 1, 2, 1, 2, 1, 0}};
-	int i;
-	int j;
-	t_array	sol;
+	int			i;
+	int			j;
+	t_array		sol;
 
 	i = -1;
 	routetab = ft_init_tab(8);

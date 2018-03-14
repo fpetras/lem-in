@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   map_visualizer.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnugroho <rnugroho@students.42.fr>         +#+  +:+       +#+        */
+/*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:14:31 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/14 03:43:54 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/14 15:34:48 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-#define W 100
-#define H 30
+#define W 200
+#define H 50
 
 void
 	print_line(t_node l1, t_node l2, int color)
 {
-	t_node a;
-	t_node b;
-	int col;
-	int row;
+	t_node	a;
+	t_node	b;
+	int		col;
+	int		row;
 
 	a = (l1.col >= l2.col ? l1 : l2);
 	b = (l1.col < l2.col ? l1 : l2);
@@ -45,10 +45,10 @@ void
 int
 	scale_map_row(t_node *nodes, int size, int row)
 {
-	int i;
-	int max_h;
-	int min_h;
-	float sc_row;
+	int		i;
+	int		max_h;
+	int		min_h;
+	float	sc_row;
 
 	i = 0;
 	max_h = 0;
@@ -69,10 +69,10 @@ int
 int
 	scale_map_col(t_node *nodes, int size, int col)
 {
-	int i;
-	int max_w;
-	int min_w;
-	float sc_col;
+	int		i;
+	int		max_w;
+	int		min_w;
+	float	sc_col;
 
 	i = 0;
 	max_w = 0;
@@ -93,8 +93,8 @@ int
 t_node
 	*scale_map(t_node *nodes, int size)
 {
-	t_node *d_nodes;
-	int i;
+	t_node	*d_nodes;
+	int		i;
 
 	d_nodes = (t_node*)malloc(sizeof(t_node) * size);
 	ft_memcpy(d_nodes, nodes, sizeof(t_node) * size);
@@ -127,7 +127,8 @@ void
 	i = 0;
 	while (i < 8)
 	{
-		ft_printf("%*.*v%*W%s%w", nodes[i].row, nodes[i].col, GREEN, nodes[i].name);
+		ft_printf("%*.*v%*W%s%w", nodes[i].row,nodes[i].col,
+		GREEN, nodes[i].name);
 		i++;
 	}
 	ft_printf("%*.*v", H + 1, 0);
@@ -193,10 +194,10 @@ void
 void
 	print_map_dummy()
 {
-	t_node *nodes;
-	int size;
-	int	**routetab;
-	int	tab[8][8] = {
+	t_node 		*nodes;
+	int 		size;
+	int			**routetab;
+	const int	tab[8][8] = {
 		{0, 3, 2, 2, 1, 2, 1, 2},
 		{3, 0, 1, 1, 2, 2, 3, 2},
 		{2, 1, 0, 2, 1, 1, 2, 1},
@@ -205,12 +206,12 @@ void
 		{2, 2, 1, 1, 2, 0, 1, 2},
 		{1, 3, 3, 3, 2, 1, 0, 1},
 		{2, 2, 1, 2, 1, 2, 1, 0}};
-	int i;
-	int j;
-	int node1;
-	int node2;
-	char **cmds;
-	char **icmds;
+	int			i;
+	int			j;
+	int			node1;
+	int			node2;
+	char		**cmds;
+	char		**icmds;
 
 	size = 8;
 	i = -1;
@@ -219,20 +220,20 @@ void
 	{
 		j = -1;
 		while (++j < size)
-		if (tab[i][j] == 1)
-			routetab[i][j] = tab[i][j];
-		else
-			routetab[i][j] = 0;
+			if (tab[i][j] == 1)
+				routetab[i][j] = tab[i][j];
+			else
+				routetab[i][j] = 0;
 	}
 	nodes = (t_node*)malloc(sizeof(t_node) * size);
-	nodes[1] = (t_node){1, "1", 23, 5};
-	nodes[2] = (t_node){2, "2", 16, 7};
-	nodes[3] = (t_node){3, "3", 16, 3};
-	nodes[4] = (t_node){4, "4", 16, 5};
-	nodes[5] = (t_node){5, "5", 9, 3};
-	nodes[6] = (t_node){6, "6", 1, 5};
-	nodes[7] = (t_node){7, "7", 4, 7};
-	nodes[0] = (t_node){0, "0", 9, 5};
+	nodes[1] = (t_node){1, "Room 1", 23, 5};
+	nodes[2] = (t_node){2, "Room 2", 16, 7};
+	nodes[3] = (t_node){3, "Room 3", 16, 3};
+	nodes[4] = (t_node){4, "Room 4", 16, 5};
+	nodes[5] = (t_node){5, "Room 5", 9, 3};
+	nodes[6] = (t_node){6, "Room 6", 1, 5};
+	nodes[7] = (t_node){7, "Room 7", 4, 7};
+	nodes[0] = (t_node){0, "Room 0", 9, 5};
 
 	cmds = (char**)malloc(sizeof(char*) * 8);
 	cmds[0] = ft_strdup("1 1 1 1 1 1");
@@ -244,7 +245,7 @@ void
 	cmds[6] = ft_strdup("0 0 0 0 0 0");
 	cmds[7] = NULL;
 	i = 0;
-	while(cmds[i])
+	while (cmds[i])
 	{
 		icmds = ft_strsplit(cmds[i], ' ');
 		j = 0;
