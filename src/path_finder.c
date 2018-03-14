@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@students.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/13 21:04:53 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/14 01:22:12 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int
 	return (tab);
 }
 
-static void
+void
 	pf_print_tab(int **tab, int row, int col)
 {
 	int i;

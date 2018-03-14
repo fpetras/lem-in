@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@students.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:14:31 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/14 00:42:03 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/14 01:40:52 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,34 @@ void
 		ft_printf("%*.*v%*W%s%w", nodes[i].row, nodes[i].col, GREEN, nodes[i].name);
 		i++;
 	}
-	ft_printf("%*.*v", H, W);
+	ft_printf("%*.*v", H + 1, 0);
+}
+
+int
+	mv_get_node(char *cmd)
+{
+	char 	*ptr;
+	int		value;
+
+	ptr = cmd;
+	while (*ptr)
+	{
+		if (*ptr == '-')
+			break ;
+		ptr++;
+	}
+	ptr++;
+	value = ft_atoi(ptr);
+	return (value);
+}
+
+int
+	mv_get_prev_node(char **cmd, int i, int start)
+{
+	if (i == 0)
+		return (start);
+	else
+		return (mv_get_node(cmd[i - 1]));
 }
 
 void
@@ -154,6 +181,10 @@ void
 		{2, 2, 1, 2, 1, 2, 1, 0}};
 	int i;
 	int j;
+	int c;
+	int node1;
+	int node2;
+	char **cmds;
 
 	size = 8;
 	i = -1;
@@ -176,5 +207,46 @@ void
 	nodes[6] = (t_node){6, "6", 1, 5};
 	nodes[7] = (t_node){7, "7", 4, 8};
 	nodes[0] = (t_node){0, "0", 9, 5};
+
+	cmds = (char**)malloc(sizeof(char*) * 4);
+	cmds[0] = ft_strdup("L1-2");
+	cmds[1] = ft_strdup("L1-4");
+	cmds[2] = ft_strdup("L1-0");
+	cmds[3] = NULL;
+	c = 0;
+	
+	while(cmds[c])
+	{
+		node1 = mv_get_prev_node(cmds, c, 1);
+		node2 = mv_get_node(cmds[c]);
+		i = -1;
+		while (++i < size)
+		{
+			j = -1;
+			while (++j < size)
+			{
+				if ((i == node1 && j == node2) ||
+					(i == node2 && j == node1))
+					routetab[i][j] += 1;
+
+				else	if (routetab[i][j] >= 1)
+					 routetab[i][j] = 1;
+			}
+		}
+		print_map(nodes, routetab, size);
+		node1 = node2;
+		c++;
+		system("sleep 1");
+	}
+	i = -1;
+	while (++i < size)
+	{
+		j = -1;
+		while (++j < size)
+		{
+			if (routetab[i][j] >= 1)
+				routetab[i][j] = 1;
+		}
+	}
 	print_map(nodes, routetab, size);
 }
