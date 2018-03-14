@@ -1,3 +1,5 @@
+![lem-in visualizer](https://media.giphy.com/media/1xOOjP3ppkPeyaexra/giphy.gif)
+
 Manage GIT Submodule  
 - git pull && git submodule init && git submodule update && git submodule status
 - git submodule update --recursive --remote
