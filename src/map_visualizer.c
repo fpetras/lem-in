@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@students.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:14:31 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/14 01:40:52 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/14 02:51:16 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,28 +140,67 @@ void
 int
 	mv_get_node(char *cmd)
 {
-	char 	*ptr;
-	int		value;
+	int value;
 
-	ptr = cmd;
-	while (*ptr)
-	{
-		if (*ptr == '-')
-			break ;
-		ptr++;
-	}
-	ptr++;
-	value = ft_atoi(ptr);
+	value = ft_atoi(cmd);
 	return (value);
 }
 
 int
-	mv_get_prev_node(char **cmd, int i, int start)
+	mv_get_prev_node(char **cmd, int i, int j, int start)
 {
+	char **icmds;
+
 	if (i == 0)
 		return (start);
 	else
-		return (mv_get_node(cmd[i - 1]));
+	{
+		icmds = ft_strsplit(cmd[i - 1], ' ');
+		if (j >= ft_wordcounter(cmd[i - 1], ' '))
+			j = 0;
+		return (mv_get_node(icmds[j]));
+	}
+}
+
+void
+	reset_map(int ***routetab, int size)
+{
+	int i;
+	int j;
+
+	i = -1;
+	while (++i < size)
+	{
+		j = -1;
+		while (++j < size)
+		{
+			if ((*routetab)[i][j] >= 1)
+				(*routetab)[i][j] = 1;
+		}
+	}
+}
+
+void
+	color_map(int ***routetab, int size, int node1, int node2)
+{
+	int i;
+	int j;
+
+	i = -1;
+	while (++i < size)
+	{
+		j = -1;
+		while (++j < size)
+		{
+			if ((i == node1 && j == node2) ||
+				(i == node2 && j == node1))
+			{
+				(*routetab)[i][j] += 1;
+				if ((*routetab)[i][j] > 3)
+					(*routetab)[i][j] = 2;
+			}
+		}
+	}
 }
 
 void
@@ -181,10 +220,10 @@ void
 		{2, 2, 1, 2, 1, 2, 1, 0}};
 	int i;
 	int j;
-	int c;
 	int node1;
 	int node2;
 	char **cmds;
+	char **icmds;
 
 	size = 8;
 	i = -1;
@@ -208,45 +247,29 @@ void
 	nodes[7] = (t_node){7, "7", 4, 8};
 	nodes[0] = (t_node){0, "0", 9, 5};
 
-	cmds = (char**)malloc(sizeof(char*) * 4);
-	cmds[0] = ft_strdup("L1-2");
-	cmds[1] = ft_strdup("L1-4");
-	cmds[2] = ft_strdup("L1-0");
-	cmds[3] = NULL;
-	c = 0;
-	
-	while(cmds[c])
+	cmds = (char**)malloc(sizeof(char*) * 8);
+	cmds[0] = ft_strdup("1 1 1 1 1 1");
+	cmds[1] = ft_strdup("2 3 1 1 1 1");
+	cmds[2] = ft_strdup("4 5 2 3 1 1");
+	cmds[3] = ft_strdup("0 6 4 5 2 3");
+	cmds[4] = ft_strdup("0 0 0 6 4 5");
+	cmds[5] = ft_strdup("0 0 0 0 0 6");
+	cmds[6] = ft_strdup("0 0 0 0 0 0");
+	cmds[7] = NULL;
+	i = 0;
+	while(cmds[i])
 	{
-		node1 = mv_get_prev_node(cmds, c, 1);
-		node2 = mv_get_node(cmds[c]);
-		i = -1;
-		while (++i < size)
+		icmds = ft_strsplit(cmds[i], ' ');
+		j = 0;
+		while (j < ft_wordcounter(cmds[i], ' '))
 		{
-			j = -1;
-			while (++j < size)
-			{
-				if ((i == node1 && j == node2) ||
-					(i == node2 && j == node1))
-					routetab[i][j] += 1;
-
-				else	if (routetab[i][j] >= 1)
-					 routetab[i][j] = 1;
-			}
+			node1 = mv_get_prev_node(cmds, i, j, 1);
+			node2 = mv_get_node(icmds[j]);
+			color_map(&routetab, size, node1, node2);
+			j++;
 		}
 		print_map(nodes, routetab, size);
-		node1 = node2;
-		c++;
-		system("sleep 1");
+		system("sleep 0.4");
+		i++;
 	}
-	i = -1;
-	while (++i < size)
-	{
-		j = -1;
-		while (++j < size)
-		{
-			if (routetab[i][j] >= 1)
-				routetab[i][j] = 1;
-		}
-	}
-	print_map(nodes, routetab, size);
 }
