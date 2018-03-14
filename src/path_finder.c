@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/14 15:38:20 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/14 17:11:21 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,14 @@ int
 	return (0);
 }
 
+// char
+// 	**convert_to_instruction(t_array *sols, int nb_sols, int nb_ants)
+// {
+// 	int nb_turn;
+
+// 	nb_turn = 
+// }
+
 void
 	path_finder_dummy()
 {
@@ -179,6 +187,10 @@ void
 	int			i;
 	int			j;
 	t_array		sol;
+	t_array		*sols;
+	t_array		*temp;
+	int			nb_sols;
+	t_node 		*nodes;
 
 	i = -1;
 	routetab = ft_init_tab(8);
@@ -190,38 +202,37 @@ void
 	}
 	int start = 1;
 	int end = 0;
+	// int	nb_ants = 5;
+	int	nb_room = 8;
 
 	sol = NEW_ARRAY(int);
 	fta_append(&sol, &start, 1);
 	ft_printfln("First Algorithm:");
 	pf_print_tab(routetab, 8, 8);
+	nb_sols = 1;
 	while (path_finder_1(&routetab, 8, &sol, end))
 	{
+		temp = (t_array*)malloc(sizeof(t_array) * nb_sols);
+		if (sols != NULL)
+		{
+			ft_memcpy(temp, sols, sizeof(t_array) * nb_sols - 1);
+			free(sols);
+		}
+		sols = temp;
+		sols[nb_sols - 1] = sol;
 		fta_printdata_int(sol);
 		pf_print_tab(routetab, 8, 8);
 		fta_clear(&sol);
 		sol = NEW_ARRAY(int);
 		fta_append(&sol, &start, 1);
 	}
-
-	i = -1;
-	while (++i < 8)
-	{
-		j = -1;
-		while (++j < 8)
-			routetab[i][j] = tab[i][j];
-	}
-	fta_clear(&sol);
-	sol = NEW_ARRAY(int);
-	fta_append(&sol, &start, 1);
-	ft_printfln("Second Algorithm:");
-	pf_print_tab(routetab, 8, 8);
-	while (path_finder_2(&routetab, 8, &sol, end))
-	{
-		fta_printdata_int(sol);
-		pf_print_tab(routetab, 8, 8);
-		fta_clear(&sol);
-		sol = NEW_ARRAY(int);
-		fta_append(&sol, &start, 1);
-	}
+	nodes = (t_node*)malloc(sizeof(t_node) * nb_room);
+	nodes[1] = (t_node){1, "Room 1", 23, 5};
+	nodes[2] = (t_node){2, "Room 2", 16, 7};
+	nodes[3] = (t_node){3, "Room 3", 16, 3};
+	nodes[4] = (t_node){4, "Room 4", 16, 5};
+	nodes[5] = (t_node){5, "Room 5", 9, 3};
+	nodes[6] = (t_node){6, "Room 6", 1, 5};
+	nodes[7] = (t_node){7, "Room 7", 4, 7};
+	nodes[0] = (t_node){0, "Room 0", 9, 5};
 }

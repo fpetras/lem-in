@@ -6,14 +6,14 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:14:31 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/14 15:34:48 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/14 16:52:08 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-#define W 200
-#define H 50
+#define W 100
+#define H 25
 
 void
 	print_line(t_node l1, t_node l2, int color)
