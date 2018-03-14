@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rnugroho <rnugroho@students.42.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 09:32:55 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/14 15:35:30 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/14 18:17:17 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void				ft_free_struct(t_lem_in *l);
 
 void				path_finder_dummy();
 void				print_map_dummy();
+void				distance_calc_dummy();
 
 int					**ft_init_tab(int size);
 void				pf_print_tab(int **tab, int row, int col);

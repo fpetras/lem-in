@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/14 17:11:21 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/14 19:03:24 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,13 +163,68 @@ int
 	return (0);
 }
 
-// char
-// 	**convert_to_instruction(t_array *sols, int nb_sols, int nb_ants)
-// {
-// 	int nb_turn;
+void
+	ft_distance(int **connections, int size)
+{
+	int i;
+	int j;
+	int col;
+	int updated;
 
-// 	nb_turn = 
-// }
+	i = 0;
+	while (i < size)
+	{
+		j = 0;
+		while (j < size)
+		{
+			col = 0;
+			updated = 0;
+			while (col < size)
+			{
+				if (connections[j][col] + connections[i][j] < connections[i][col])
+				{
+					connections[i][col] = connections[j][col] + connections[i][j];
+					updated = 1;
+				}
+				col++;
+			}
+			if (updated)
+				j = 0;
+			else
+				j++;
+		}
+		i++;
+	}
+}
+
+void
+	distance_calc_dummy()
+{
+	int			**routetab;
+	int	tab[8][8] = {
+		{0, 9, 9, 9, 1, 9, 1, 9},
+		{9, 0, 1, 1, 9, 9, 9, 9},
+		{9, 1, 0, 9, 1, 1, 9, 1},
+		{9, 1, 9, 0, 1, 1, 9, 9},
+		{1, 9, 1, 1, 0, 9, 9, 1},
+		{9, 9, 1, 1, 9, 0, 1, 9},
+		{1, 9, 9, 9, 9, 1, 0, 1},
+		{9, 9, 1, 9, 1, 9, 1, 0}};
+	int i;
+	int j;
+	int size = 8;
+
+	i = -1;
+	routetab = ft_init_tab(8);
+	while (++i < 8)
+	{
+		j = -1;
+		while (++j < 8)
+			routetab[i][j] = tab[i][j];
+	}
+	ft_distance(routetab, size);
+	pf_print_tab(routetab, 8, 8);
+}
 
 void
 	path_finder_dummy()
