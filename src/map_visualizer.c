@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:14:31 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/15 20:07:17 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/15 20:53:27 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ t_node
 		nodes[i].row = scale_map_row(d_nodes, size, nodes[i].row);
 		i++;
 	}
+	free(d_nodes);
 	return (nodes);
 }
 
@@ -136,7 +137,8 @@ void
 int
 	mv_get_prev_node(char **cmd, int i, int j, int start)
 {
-	char **icmds;
+	char 	**icmds;
+	int		value;
 
 	if (i == 0)
 		return (start);
@@ -145,7 +147,9 @@ int
 		icmds = ft_strsplit(cmd[i - 1], ' ');
 		if (j >= ft_wordcounter(cmd[i - 1], ' '))
 			j = 0;
-		return (ft_atoi(icmds[j]));
+		value = ft_atoi(icmds[j]);
+		ft_strtab_free(icmds);
+		return (value);
 	}
 }
 
@@ -224,82 +228,15 @@ void
 			node1 = mv_get_prev_node(cmds, i, j, 1);
 			node2 = ft_atoi(icmds[j]);
 			color_map(&routetab, size, node1, node2);
+			free(&node1);
+			free(&node2);
 			j++;
 		}
+		ft_strtab_free(icmds);
 		ft_printf("\033[H\033[J");
 		print_map(nodes, routetab, size);
-		system("sleep 0.4");
+		// system("sleep 0.4");
 		i++;
 	}
-}
-
-void
-	print_map_dummy()
-{
-	t_node 		*nodes;
-	int 		size;
-	int			**routetab;
-	const int	tab[8][8] = {
-		{0, 3, 2, 2, 1, 2, 1, 2},
-		{3, 0, 1, 1, 2, 2, 3, 2},
-		{2, 1, 0, 2, 1, 1, 2, 1},
-		{2, 1, 2, 0, 1, 1, 2, 2},
-		{1, 2, 1, 1, 0, 2, 2, 1},
-		{2, 2, 1, 1, 2, 0, 1, 2},
-		{1, 3, 3, 3, 2, 1, 0, 1},
-		{2, 2, 1, 2, 1, 2, 1, 0}};
-	int			i;
-	int			j;
-	int			node1;
-	int			node2;
-	char		**cmds;
-	char		**icmds;
-
-	size = 8;
-	i = -1;
-	routetab = ft_init_tab(8);
-	while (++i < size)
-	{
-		j = -1;
-		while (++j < size)
-			if (tab[i][j] == 1)
-				routetab[i][j] = tab[i][j];
-			else
-				routetab[i][j] = 0;
-	}
-	nodes = (t_node*)malloc(sizeof(t_node) * size);
-	nodes[1] = (t_node){1, "Room 1", 23, 5};
-	nodes[2] = (t_node){2, "Room 2", 16, 7};
-	nodes[3] = (t_node){3, "Room 3", 16, 3};
-	nodes[4] = (t_node){4, "Room 4", 16, 5};
-	nodes[5] = (t_node){5, "Room 5", 9, 3};
-	nodes[6] = (t_node){6, "Room 6", 1, 5};
-	nodes[7] = (t_node){7, "Room 7", 4, 7};
-	nodes[0] = (t_node){0, "Room 0", 9, 5};
-
-	cmds = (char**)malloc(sizeof(char*) * 8);
-	cmds[0] = ft_strdup("1 1 1 1 1 1");
-	cmds[1] = ft_strdup("2 3 1 1 1 1");
-	cmds[2] = ft_strdup("4 5 2 3 1 1");
-	cmds[3] = ft_strdup("0 6 4 5 2 3");
-	cmds[4] = ft_strdup("0 0 0 6 4 5");
-	cmds[5] = ft_strdup("0 0 0 0 0 6");
-	cmds[6] = ft_strdup("0 0 0 0 0 0");
-	cmds[7] = NULL;
-	i = 0;
-	while (cmds[i])
-	{
-		icmds = ft_strsplit(cmds[i], ' ');
-		j = 0;
-		while (j < ft_wordcounter(cmds[i], ' '))
-		{
-			node1 = mv_get_prev_node(cmds, i, j, 1);
-			node2 = ft_atoi(icmds[j]);
-			color_map(&routetab, size, node1, node2);
-			j++;
-		}
-		print_map(nodes, routetab, size);
-		system("sleep 0.4");
-		i++;
-	}
+	ft_strtab_free(cmds);
 }

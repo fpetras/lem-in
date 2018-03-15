@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/15 20:06:43 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/15 20:42:11 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +221,7 @@ void
 			else
 				temp = ft_itoa(((int*)sols[col % nb_sols]->data)[offset + row]);
 			fta_append(cmds, temp, ft_strlen(temp));
+			free(temp);
 			fta_append(cmds, " ", 1);
 		}
 		fta_append(cmds, "\n", 1);
@@ -246,6 +247,7 @@ int
 		sol = NEW_ARRAY(int);
 		fta_append(&sol, &start, 1);
 	}
+	fta_clear(&sol);
 	return (nb_sols);
 }
 
@@ -269,14 +271,18 @@ int			ft_pathfinding(t_lem_in *l)
 	nb_sols = run_path_finder(connections, l->nb_rooms, &sols,
 	li_get_nodes_index(rooms, l, l->start), li_get_nodes_index(rooms, l, l->end));
 	cmds = NEW_ARRAY(char);
-		i = 0;
+
+	solutions_to_cmds(sols, &cmds, l->nb_ants, nb_sols);
+	i = 0;
 	while (i < nb_sols)
 	{
-		fta_printdata_int(sols[i]);
+		fta_clear(sols[i]);
+		free(sols[i]);
 		i++;
 	}
-	solutions_to_cmds(sols, &cmds, l->nb_ants, nb_sols);
 	run_print_map(connections, l->nb_rooms, rooms, cmds);
+	fta_clear(&cmds);
+	free(sols);
 	ft_free_int_tab(connections, l->nb_rooms);
 	ft_free_nodes(rooms, l->nb_rooms);
 	return (0);
