@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:14:31 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/15 20:53:27 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/15 21:10:28 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,14 +228,12 @@ void
 			node1 = mv_get_prev_node(cmds, i, j, 1);
 			node2 = ft_atoi(icmds[j]);
 			color_map(&routetab, size, node1, node2);
-			free(&node1);
-			free(&node2);
 			j++;
 		}
 		ft_strtab_free(icmds);
 		ft_printf("\033[H\033[J");
 		print_map(nodes, routetab, size);
-		// system("sleep 0.4");
+		system("sleep 0.4");
 		i++;
 	}
 	ft_strtab_free(cmds);
