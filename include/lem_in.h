@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 09:32:55 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/15 19:12:09 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/15 20:00:50 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,10 @@ void				ft_free_tab(char **tab);
 void				ft_free_int_tab(int **tab, int size);
 void				ft_free_nodes(t_node *rooms, int size);
 void				ft_free_struct(t_lem_in *l);
+
+int					**ft_init_table(t_lem_in *l);
+t_node				*ft_init_rooms(t_lem_in *l);
+int					li_get_nodes_index(t_node *rooms, t_lem_in *l, char *name);
 
 void				path_finder_dummy();
 void				print_map_dummy();
