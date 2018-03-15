@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/15 15:52:01 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/15 16:48:46 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,6 +260,38 @@ t_array
 	return (sols);
 }
 
+char
+	**solutions_to_cmds(t_array **sols, int nb_ants, int nb_sols)
+{
+	char	**cmds;
+	int		col;
+	int		row;
+	int		offset;
+
+	row = 0;
+	while (1)
+	{
+		col = 0;
+		offset = 1;
+		while (col < nb_ants)
+		{
+			if (col % nb_sols == 0)
+				offset--;
+			if ((offset + row) < 0)
+				ft_printf("%d ", ((int*)sols[0]->data)[0]);
+			else if ((offset + row) > (int)sols[col % nb_sols]->size - 1)
+				ft_printf("%d ", ((int*)sols[0]->data)[sols[0]->size - 1]);
+			else
+				ft_printf("%d ", ((int*)sols[col % nb_sols]->data)[offset + row]);
+			col++;
+		}
+		ft_printf("\n");
+		if (offset + row == (int)sols[(col - 1) % nb_sols]->size - 1)
+			break ;
+		row++;
+	};
+}
+
 void
 	path_finder_dummy()
 {
@@ -290,7 +322,7 @@ void
 	}
 	int start = 1;
 	int end = 0;
-	// int	nb_ants = 5;
+	int	nb_ants = 4;
 	int	nb_room = 8;
 
 	sol = NEW_ARRAY(int);
@@ -323,4 +355,5 @@ void
 	nodes[6] = (t_node){6, "Room 6", 1, 5};
 	nodes[7] = (t_node){7, "Room 7", 4, 7};
 	nodes[0] = (t_node){0, "Room 0", 9, 5};
+	solutions_to_cmds(sols, nb_ants, nb_sols);
 }
