@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 09:34:58 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/15 22:59:42 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/15 23:14:15 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,23 +112,16 @@ int		main(int ac, char **av)
 	int			isverbose;
 
 	isverbose = 0;
-	if (ac > 1)
+	if ( ac > 1 && (ac > 2 || (isverbose = getoptions(av)) == 0))
 	{
-		if (ac > 2 || (isverbose = getoptions(av)) == 0)
-		{
-			ft_dprintf(2, "usage: %s [-v] < map\n", av[0]);
-			return (-1);
-		}
-	}
-	if ((map = ft_read_map()) == NULL)
-	{
-		ft_dprintf(2, "ERROR\n");
+		ft_dprintf(2, "usage: %s [-v] < map\n", av[0]);
 		return (-1);
 	}
-	if (ft_init_struct(&l, map) == -1)
+	if ((map = ft_read_map()) == NULL || ft_init_struct(&l, map) == -1)
 	{
 		ft_dprintf(2, "ERROR\n");
-		ft_free_tab(map);
+		if (ft_init_struct(&l, map) == -1)
+			ft_free_tab(map);
 		return (-1);
 	}
 	if (ft_parsing(map, &l) == -1 || ft_pathfinding(&l, map, isverbose) == -1)
