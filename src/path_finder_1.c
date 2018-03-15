@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/15 22:39:02 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/15 22:55:44 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void
 	ft_strtab_free(cmds);
 }
 
-int			ft_pathfinding(t_lem_in *l, char **map)
+int			ft_pathfinding(t_lem_in *l, char **map, int isverbose)
 {
 	int			**connections;
 	t_node		*rooms;
@@ -131,7 +131,8 @@ int			ft_pathfinding(t_lem_in *l, char **map)
 		li_get_nodes_index(rooms, l, l->start), li_get_nodes_index(rooms, l, l->end));
 	cmds = NEW_ARRAY(char);
 	solutions_to_cmds(sols, &cmds, l->nb_ants, nb_sols);
-	run_print_map(connections, l->nb_rooms, rooms, cmds);
+	if (isverbose)
+		run_print_map(connections, l->nb_rooms, rooms, cmds);
 	ft_print_tab(map);
 	li_print_solutions(cmds, rooms, l);
 	free_sols_cmds(sols, cmds, nb_sols);

@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 09:34:58 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/15 22:35:53 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/15 22:59:42 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,15 +93,32 @@ char	**ft_read_map(void)
 	return (ft_save_map(file[0]));
 }
 
+int
+	getoptions(char **av)
+{
+	int isverbose;
+
+	if (ft_strcmp(av[1], "-v") == 0)
+		isverbose = 1;
+	else
+		isverbose = 0;
+	return (isverbose);
+}
+
 int		main(int ac, char **av)
 {
 	char		**map;
 	t_lem_in	l;
+	int			isverbose;
 
+	isverbose = 0;
 	if (ac > 1)
 	{
-		ft_dprintf(2, "usage: %s < map\n", av[0]);
-		return (-1);
+		if (ac > 2 || (isverbose = getoptions(av)) == 0)
+		{
+			ft_dprintf(2, "usage: %s [-v] < map\n", av[0]);
+			return (-1);
+		}
 	}
 	if ((map = ft_read_map()) == NULL)
 	{
@@ -114,7 +131,7 @@ int		main(int ac, char **av)
 		ft_free_tab(map);
 		return (-1);
 	}
-	if (ft_parsing(map, &l) == -1 || ft_pathfinding(&l, map) == -1)
+	if (ft_parsing(map, &l) == -1 || ft_pathfinding(&l, map, isverbose) == -1)
 		ft_dprintf(2, "ERROR\n");
 	ft_free_tab(map);
 	ft_free_struct(&l);
