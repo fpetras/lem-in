@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/15 16:48:46 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/15 17:15:41 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,15 +260,17 @@ t_array
 	return (sols);
 }
 
-char
-	**solutions_to_cmds(t_array **sols, int nb_ants, int nb_sols)
+t_array
+	solutions_to_cmds(t_array **sols, int nb_ants, int nb_sols)
 {
-	char	**cmds;
+	t_array	cmds;
 	int		col;
 	int		row;
 	int		offset;
+	char	*temp;
 
 	row = 0;
+	cmds = NEW_ARRAY(char);
 	while (1)
 	{
 		col = 0;
@@ -278,18 +280,24 @@ char
 			if (col % nb_sols == 0)
 				offset--;
 			if ((offset + row) < 0)
-				ft_printf("%d ", ((int*)sols[0]->data)[0]);
+				fta_append(&cmds, "-", 1);
 			else if ((offset + row) > (int)sols[col % nb_sols]->size - 1)
-				ft_printf("%d ", ((int*)sols[0]->data)[sols[0]->size - 1]);
+				fta_append(&cmds, "-", 1);
 			else
-				ft_printf("%d ", ((int*)sols[col % nb_sols]->data)[offset + row]);
+			{
+				temp = ft_itoa(((int*)sols[col % nb_sols]->data)[offset + row]);
+				fta_append(&cmds, temp, ft_strlen(temp));
+			}
+			fta_append(&cmds, " ", 1);
 			col++;
 		}
-		ft_printf("\n");
+		fta_append(&cmds, "\n", 1);
 		if (offset + row == (int)sols[(col - 1) % nb_sols]->size - 1)
 			break ;
 		row++;
 	};
+	ft_printf("%s", (char*)cmds.data);
+	return (cmds);
 }
 
 void
