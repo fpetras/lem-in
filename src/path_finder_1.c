@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/15 22:27:31 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/15 22:39:02 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ void
 	{
 		icmds = ft_strsplit(cmds[i], ' ');
 		j = 0;
+		if (i > 0)
+			ft_printf("\n");
 		while (j < ft_wordcounter(cmds[i], ' '))
 		{
 			if (li_get_nodes_index(rooms, l, l->end) != ft_atoi(icmds[j]) &&
@@ -103,14 +105,13 @@ void
 			ft_printf("L%d-%s ", j + 1, li_get_nodes_name(rooms, l, ft_atoi(icmds[j])));
 			j++;
 		}
-		ft_printf("\n");
 		ft_strtab_free(icmds);
 		i++;
 	}
 	ft_strtab_free(cmds);
 }
 
-int			ft_pathfinding(t_lem_in *l)
+int			ft_pathfinding(t_lem_in *l, char **map)
 {
 	int			**connections;
 	t_node		*rooms;
@@ -130,7 +131,8 @@ int			ft_pathfinding(t_lem_in *l)
 		li_get_nodes_index(rooms, l, l->start), li_get_nodes_index(rooms, l, l->end));
 	cmds = NEW_ARRAY(char);
 	solutions_to_cmds(sols, &cmds, l->nb_ants, nb_sols);
-	// run_print_map(connections, l->nb_rooms, rooms, cmds);
+	run_print_map(connections, l->nb_rooms, rooms, cmds);
+	ft_print_tab(map);
 	li_print_solutions(cmds, rooms, l);
 	free_sols_cmds(sols, cmds, nb_sols);
 	ft_free_int_tab(connections, l->nb_rooms);

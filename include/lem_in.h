@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 09:32:55 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/15 22:17:14 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/15 22:36:33 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int					ft_isroom(char *line);
 int					ft_islink(char *line);
 int					ft_isnumber(char *coord);
 
-int					ft_pathfinding(t_lem_in *l);
+int					ft_pathfinding(t_lem_in *l, char **map);
 void				ft_distance(int **routes, int size);
 
 void				ft_remove_coordinates(t_lem_in *l);
