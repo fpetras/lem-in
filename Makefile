@@ -6,7 +6,7 @@
 #    By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/01 20:07:00 by rnugroho          #+#    #+#              #
-#    Updated: 2018/03/15 19:55:49 by rnugroho         ###   ########.fr        #
+#    Updated: 2018/03/15 20:08:43 by rnugroho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ FILES:= main \
 		free \
 		path_finder \
 		map_visualizer \
-		path_finding route_manager
+		route_manager
 
 # ----- Libft ------
 LFTDIR:=./libft

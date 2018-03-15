@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:14:31 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/15 19:39:16 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/15 20:07:17 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,7 +228,6 @@ void
 		}
 		ft_printf("\033[H\033[J");
 		print_map(nodes, routetab, size);
-		pf_print_tab(routetab, size, size);
 		system("sleep 0.4");
 		i++;
 	}

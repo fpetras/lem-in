@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/15 19:11:59 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/15 20:06:43 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,70 +249,35 @@ int
 	return (nb_sols);
 }
 
-void
-	path_finder_dummy()
+int			ft_pathfinding(t_lem_in *l)
 {
-	int			**routetab;
-	const int	tab[8][8] = {
-		{0, 3, 2, 2, 1, 2, 1, 2},
-		{3, 0, 1, 1, 2, 2, 3, 2},
-		{2, 1, 0, 2, 1, 1, 2, 1},
-		{2, 1, 2, 0, 1, 1, 2, 2},
-		{1, 2, 1, 1, 0, 2, 2, 1},
-		{2, 2, 1, 1, 2, 0, 1, 2},
-		{1, 3, 3, 3, 2, 1, 0, 1},
-		{2, 2, 1, 2, 1, 2, 1, 0}};
-	int			i;
-	int			j;
-	t_array		sol;
-	t_array		cmds;
+	int			**connections;
+	t_node		*rooms;
 	t_array		**sols;
+	t_array		cmds;
 	int			nb_sols;
-	t_node 		*nodes;
+	int			i;
 
-	i = -1;
-	routetab = ft_init_tab(8);
-	while (++i < 8)
+	if (!(connections = ft_init_table(l)))
+		return (-1);
+	if (!(rooms = ft_init_rooms(l)))
 	{
-		j = -1;
-		while (++j < 8)
-			routetab[i][j] = tab[i][j];
+		ft_free_int_tab(connections, l->nb_rooms);
+		return (-1);
 	}
-	int start = 1;
-	int end = 0;
-	int	nb_ants = 4;
-	int	nb_room = 8;
-
-	sol = NEW_ARRAY(int);
-	fta_append(&sol, &start, 1);
-	nb_sols = 0;
-	while (path_finder_1(&routetab, 8, &sol, end))
-	{
-		fta_printdata_int(&sol);
-		pf_print_tab(routetab, 8, 8);
-		sols = append_solutions(sols, nb_sols, sol);
-		nb_sols++;;
-		fta_clear(&sol);
-		sol = NEW_ARRAY(int);
-		fta_append(&sol, &start, 1);
-	}
-	i = 0;
+	ft_distance(connections, l->nb_rooms);
+	nb_sols = run_path_finder(connections, l->nb_rooms, &sols,
+	li_get_nodes_index(rooms, l, l->start), li_get_nodes_index(rooms, l, l->end));
+	cmds = NEW_ARRAY(char);
+		i = 0;
 	while (i < nb_sols)
 	{
 		fta_printdata_int(sols[i]);
 		i++;
 	}
-	ft_printfln("");
-	nodes = (t_node*)malloc(sizeof(t_node) * nb_room);
-	nodes[1] = (t_node){1, "Room 1", 23, 5};
-	nodes[2] = (t_node){2, "Room 2", 16, 7};
-	nodes[3] = (t_node){3, "Room 3", 16, 3};
-	nodes[4] = (t_node){4, "Room 4", 16, 5};
-	nodes[5] = (t_node){5, "Room 5", 9, 3};
-	nodes[6] = (t_node){6, "Room 6", 1, 5};
-	nodes[7] = (t_node){7, "Room 7", 4, 7};
-	nodes[0] = (t_node){0, "Room 0", 9, 5};
-	cmds = NEW_ARRAY(char);
-	solutions_to_cmds(sols, &cmds, nb_ants, nb_sols);
-	ft_printfln("%s", (char*)cmds.data);
+	solutions_to_cmds(sols, &cmds, l->nb_ants, nb_sols);
+	run_print_map(connections, l->nb_rooms, rooms, cmds);
+	ft_free_int_tab(connections, l->nb_rooms);
+	ft_free_nodes(rooms, l->nb_rooms);
+	return (0);
 }
