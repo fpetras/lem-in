@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:14:31 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/14 20:31:03 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/15 19:17:20 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,6 @@ void
 	int j;
 
 	nodes = scale_map(nodes, size);
-	ft_printf("\033[H\033[J");
 	i = -1;
 	while (++i < size)
 	{
@@ -125,7 +124,7 @@ void
 				print_line(nodes[i], nodes[j], routetab[i][j] - 1);
 	}
 	i = 0;
-	while (i < 8)
+	while (i < size)
 	{
 		ft_printf("%*.*v%*W%s%w", nodes[i].row,nodes[i].col,
 		GREEN, nodes[i].name);
@@ -188,6 +187,44 @@ void
 					(*routetab)[i][j] = 2;
 			}
 		}
+	}
+}
+
+void
+	run_print_map(int **routetab, int size, t_node *nodes, t_array a_cmds)
+{
+	int			i;
+	int			j;
+	int			node1;
+	int			node2;
+	char		**cmds;
+	char		**icmds;
+
+	i = -1;
+	while (++i < size)
+	{
+		j = -1;
+		while (++j < size)
+			if (routetab[i][j] != 1)
+				routetab[i][j] = 0;
+	}
+	i = 0;
+	cmds = ft_strsplit(((char*)a_cmds.data), '\n');
+	while (cmds[i])
+	{
+		icmds = ft_strsplit(cmds[i], ' ');
+		j = 0;
+		while (j < ft_wordcounter(cmds[i], ' '))
+		{
+			node1 = mv_get_prev_node(cmds, i, j, 1);
+			node2 = ft_atoi(icmds[j]);
+			color_map(&routetab, size, node1, node2);
+			j++;
+		}
+		ft_printf("\033[H\033[J");
+		print_map(nodes, routetab, size);
+		system("sleep 0.4");
+		i++;
 	}
 }
 

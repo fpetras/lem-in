@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rnugroho <rnugroho@students.42.fr>         +#+  +:+       +#+         #
+#    By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/01 20:07:00 by rnugroho          #+#    #+#              #
-#    Updated: 2018/03/13 20:10:32 by rnugroho         ###   ########.fr        #
+#    Updated: 2018/03/15 17:50:28 by rnugroho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,11 +15,11 @@ FILES:= main \
 		validation \
 		validation2 \
 		data_processing \
-		utilities \
-		utilities2 \
+		utilities utilities2 utilities3 \
 		free \
 		path_finder \
-		map_visualizer
+		map_visualizer \
+		path_finding
 
 # ----- Libft ------
 LFTDIR:=./libft

@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/15 17:26:40 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/15 19:11:59 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,69 +130,6 @@ int
 	return (0);
 }
 
-/*
-** Tolerate intersections but always try to avoid it.
-*/
-
-int
-	path_finder_2(int ***routetab, int size, t_array *sol, int end)
-{
-	int node;
-	int row;
-	int t_node;
-
-	row = ARRAY_DATA(sol, sol->size - 1);
-	node = get_min_path(*routetab, size, row, end);
-	if (node == end)
-	{
-		fta_append(sol, &node, 1);
-		return (1);
-	}
-	while (node < size && (*routetab)[end][node] < size + 1)
-	{
-		fta_append(sol, &node, 1);
-		(*routetab)[row][node] = size + 1;
-		if (path_finder_2(routetab, size, sol, end))
-			return (1);
-		fta_popback(sol, 1);
-		t_node = node;
-		//update routing table
-		node = get_min_path(*routetab, size, row, end);
-		(*routetab)[row][t_node] = 1;
-	}
-	return (0);
-}
-
-void
-	ft_distance(int **connections, int size)
-{
-	int i;
-	int j;
-	int col;
-	int updated;
-
-	i = -1;
-	while (++i < size)
-	{
-		j = 0;
-		while (j < size)
-		{
-			col = 0;
-			updated = 0;
-			while (col < size)
-			{
-				if (connections[j][col] + connections[i][j] < connections[i][col])
-				{
-					connections[i][col] = connections[j][col] + connections[i][j];
-					updated = 1;
-				}
-				col++;
-			}
-			j = (updated ? 0 : j + 1);
-		}
-	}
-}
-
 void
 	distance_calc_dummy()
 {
@@ -277,8 +214,10 @@ void
 		{
 			if (col % nb_sols == 0)
 				offset--;
-			if ((offset + row) < 0 || (offset + row) > (int)sols[col % nb_sols]->size - 1)
+			if ((offset + row) < 0)
 				temp = ft_itoa(((int*)sols[col % nb_sols]->data)[0]);
+			else if ((offset + row) > (int)sols[col % nb_sols]->size - 1)
+				temp = ft_itoa(((int*)sols[col % nb_sols]->data)[sols[col % nb_sols]->size - 1]);
 			else
 				temp = ft_itoa(((int*)sols[col % nb_sols]->data)[offset + row]);
 			fta_append(cmds, temp, ft_strlen(temp));
@@ -288,6 +227,26 @@ void
 		if (offset + row++ == (int)sols[(col - 1) % nb_sols]->size - 1)
 			break ;
 	};
+}
+
+int
+	run_path_finder(int **routetab, int size, t_array ***sols, int start, int end)
+{
+	t_array		sol;
+	int			nb_sols;
+
+	nb_sols = 0;
+	sol = NEW_ARRAY(int);
+	fta_append(&sol, &start, 1);
+	while (path_finder_1(&routetab, size, &sol, end))
+	{
+		*sols = append_solutions((*sols), nb_sols, sol);
+		nb_sols++;;
+		fta_clear(&sol);
+		sol = NEW_ARRAY(int);
+		fta_append(&sol, &start, 1);
+	}
+	return (nb_sols);
 }
 
 void
@@ -326,8 +285,6 @@ void
 
 	sol = NEW_ARRAY(int);
 	fta_append(&sol, &start, 1);
-	ft_printfln("First Algorithm:");
-	pf_print_tab(routetab, 8, 8);
 	nb_sols = 0;
 	while (path_finder_1(&routetab, 8, &sol, end))
 	{
@@ -345,6 +302,7 @@ void
 		fta_printdata_int(sols[i]);
 		i++;
 	}
+	ft_printfln("");
 	nodes = (t_node*)malloc(sizeof(t_node) * nb_room);
 	nodes[1] = (t_node){1, "Room 1", 23, 5};
 	nodes[2] = (t_node){2, "Room 2", 16, 7};

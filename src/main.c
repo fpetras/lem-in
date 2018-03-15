@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 09:34:58 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/14 20:22:46 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/15 17:43:32 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,32 +95,30 @@ char	**ft_read_map(void)
 
 int		main(int ac, char **av)
 {
-	// char		**map;
-	// t_lem_in	l;
+	char		**map;
+	t_lem_in	l;
 
 	if (ac > 1)
 	{
 		ft_dprintf(2, "usage: %s < map\n", av[0]);
 		return (-1);
 	}
-	// if ((map = ft_read_map()) == NULL)
-	// {
-	// 	ft_dprintf(2, "ERROR\n");
-	// 	return (-1);
-	// }
-	// if (ft_init_struct(&l, map) == -1)
-	// {
-	// 	ft_dprintf(2, "ERROR\n");
-	// 	ft_free_tab(map);
-	// 	return (-1);
-	// }
-	// if (ft_parsing(map, &l) == -1)
-	// 	ft_dprintf(2, "ERROR\n");
-	// else
-		// ft_print_tab(map);
+	if ((map = ft_read_map()) == NULL)
+	{
+		ft_dprintf(2, "ERROR\n");
+		return (-1);
+	}
+	if (ft_init_struct(&l, map) == -1)
+	{
+		ft_dprintf(2, "ERROR\n");
+		ft_free_tab(map);
+		return (-1);
+	}
+	if (ft_parsing(map, &l) == -1 || ft_pathfinding(&l) == -1)
+		ft_dprintf(2, "ERROR\n");
 	// print_map_dummy();
 	// distance_calc_dummy();
-	path_finder_dummy();
+	// path_finder_dummy();
 	// ft_free_tab(map);
 	// ft_free_struct(&l);
 	return (0);
