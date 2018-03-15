@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/15 22:04:46 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/15 22:27:31 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,6 @@ t_array
 	sols[nb_sols]->data = (int*)malloc(sizeof(int) * sol.size);
 	ft_memcpy(sols[nb_sols]->data, sol.data, sizeof(int) * sol.size);
 	return (sols);
-}
-
-void
-	fta_append_space(t_array *self, char *data)
-{
-	fta_append(self, data, ft_strlen(data));
-	fta_append(self, " ", 1);
 }
 
 void
@@ -89,6 +82,34 @@ int
 	return (nb_sols);
 }
 
+void
+	li_print_solutions(t_array a_cmds, t_node *rooms, t_lem_in *l)
+{
+	int			i;
+	int			j;
+	char		**cmds;
+	char		**icmds;
+
+	i = 0;
+	cmds = ft_strsplit(((char*)a_cmds.data), '\n');
+	while (cmds[i])
+	{
+		icmds = ft_strsplit(cmds[i], ' ');
+		j = 0;
+		while (j < ft_wordcounter(cmds[i], ' '))
+		{
+			if (li_get_nodes_index(rooms, l, l->end) != ft_atoi(icmds[j]) &&
+				li_get_nodes_index(rooms, l, l->start) != ft_atoi(icmds[j]))
+			ft_printf("L%d-%s ", j + 1, li_get_nodes_name(rooms, l, ft_atoi(icmds[j])));
+			j++;
+		}
+		ft_printf("\n");
+		ft_strtab_free(icmds);
+		i++;
+	}
+	ft_strtab_free(cmds);
+}
+
 int			ft_pathfinding(t_lem_in *l)
 {
 	int			**connections;
@@ -109,7 +130,8 @@ int			ft_pathfinding(t_lem_in *l)
 		li_get_nodes_index(rooms, l, l->start), li_get_nodes_index(rooms, l, l->end));
 	cmds = NEW_ARRAY(char);
 	solutions_to_cmds(sols, &cmds, l->nb_ants, nb_sols);
-	run_print_map(connections, l->nb_rooms, rooms, cmds);
+	// run_print_map(connections, l->nb_rooms, rooms, cmds);
+	li_print_solutions(cmds, rooms, l);
 	free_sols_cmds(sols, cmds, nb_sols);
 	ft_free_int_tab(connections, l->nb_rooms);
 	ft_free_nodes(rooms, l->nb_rooms);

@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 19:54:04 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/15 20:00:43 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/15 22:17:25 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,6 @@ void
 		ft_printf("row:   %d\n", rooms[i].row);
 		i++;
 	}
-}
-
-int
-	li_get_nodes_index(t_node *rooms, t_lem_in *l, char *name)
-{
-	int i;
-
-	i = 0;
-	while (i < l->nb_rooms)
-	{
-		if (ft_strcmp(rooms[i].name, name) == 0)
-			break;
-		i++;
-	}
-	return (rooms[i].index);
 }
 
 void

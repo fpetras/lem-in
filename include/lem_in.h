@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 09:32:55 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/15 22:01:32 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/15 22:17:14 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void				ft_remove_coordinates(t_lem_in *l);
 void				ft_add_coordinates(char *room);
 int					ft_1st_coord_index(char *room);
 int					ft_2nd_coord_index(char *room);
-
+void				fta_append_space(t_array *self, char *data);
 size_t				ft_tablen(char **tab);
 void				ft_print_tab(char **tab);
 void				ft_free_tab(char **tab);
@@ -81,6 +81,7 @@ void				free_sols_cmds(t_array **sols, t_array cmds, int nb_sols);
 int					**ft_init_table(t_lem_in *l);
 t_node				*ft_init_rooms(t_lem_in *l);
 int					li_get_nodes_index(t_node *rooms, t_lem_in *l, char *name);
+char				*li_get_nodes_name(t_node *rooms, t_lem_in *l, int index);
 
 void				path_finder_dummy();
 void				print_map_dummy();
