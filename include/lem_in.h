@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 09:32:55 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/15 21:19:23 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/15 22:01:32 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void				ft_free_tab(char **tab);
 void				ft_free_int_tab(int **tab, int size);
 void				ft_free_nodes(t_node *rooms, int size);
 void				ft_free_struct(t_lem_in *l);
+void				free_sols_cmds(t_array **sols, t_array cmds, int nb_sols);
 
 int					**ft_init_table(t_lem_in *l);
 t_node				*ft_init_rooms(t_lem_in *l);

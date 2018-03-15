@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/15 21:18:03 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/15 22:04:46 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,13 @@ t_array
 }
 
 void
+	fta_append_space(t_array *self, char *data)
+{
+	fta_append(self, data, ft_strlen(data));
+	fta_append(self, " ", 1);
+}
+
+void
 	solutions_to_cmds(t_array **sols, t_array *cmds, int nb_ants, int nb_sols)
 {
 	int		col;
@@ -40,27 +47,24 @@ void
 	char	*temp;
 
 	row = 0;
-	while (1)
+	while (row >= 0)
 	{
 		col = -1;
 		offset = 1;
 		while (++col < nb_ants)
 		{
-			if (col % nb_sols == 0)
-				offset--;
+			offset = (col % nb_sols == 0) ? offset - 1 : offset;
 			if ((offset + row) < 0)
 				temp = ft_itoa(((int*)sols[col % nb_sols]->data)[0]);
-			else if ((offset + row) > (int)sols[col % nb_sols]->size - 1)
-				temp = ft_itoa(((int*)sols[col % nb_sols]->data)[sols[col % nb_sols]->size - 1]);
-			else
-				temp = ft_itoa(((int*)sols[col % nb_sols]->data)[offset + row]);
-			fta_append(cmds, temp, ft_strlen(temp));
+			else 
+				temp = ((offset + row) > (int)sols[col % nb_sols]->size - 1) ?
+					ft_itoa(((int*)sols[col % nb_sols]->data)[sols[col % nb_sols]->size - 1]) :
+					ft_itoa(((int*)sols[col % nb_sols]->data)[offset + row]);
+			fta_append_space(cmds, temp);
 			free(temp);
-			fta_append(cmds, " ", 1);
 		}
 		fta_append(cmds, "\n", 1);
-		if (offset + row++ == (int)sols[(col - 1) % nb_sols]->size - 1)
-			break ;
+		row = (offset + row == (int)sols[(col - 1) % nb_sols]->size - 1) ? -1 : row + 1;
 	};
 }
 
@@ -92,7 +96,6 @@ int			ft_pathfinding(t_lem_in *l)
 	t_array		**sols;
 	t_array		cmds;
 	int			nb_sols;
-	int			i;
 
 	if (!(connections = ft_init_table(l)))
 		return (-1);
@@ -103,20 +106,11 @@ int			ft_pathfinding(t_lem_in *l)
 	}
 	ft_distance(connections, l->nb_rooms);
 	nb_sols = run_path_finder(connections, l->nb_rooms, &sols,
-	li_get_nodes_index(rooms, l, l->start), li_get_nodes_index(rooms, l, l->end));
+		li_get_nodes_index(rooms, l, l->start), li_get_nodes_index(rooms, l, l->end));
 	cmds = NEW_ARRAY(char);
-
 	solutions_to_cmds(sols, &cmds, l->nb_ants, nb_sols);
-	i = 0;
-	while (i < nb_sols)
-	{
-		fta_clear(sols[i]);
-		free(sols[i]);
-		i++;
-	}
 	run_print_map(connections, l->nb_rooms, rooms, cmds);
-	fta_clear(&cmds);
-	free(sols);
+	free_sols_cmds(sols, cmds, nb_sols);
 	ft_free_int_tab(connections, l->nb_rooms);
 	ft_free_nodes(rooms, l->nb_rooms);
 	return (0);
