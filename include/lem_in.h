@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 09:32:55 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/15 20:00:50 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/15 21:16:12 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 # define END	2
 # define ROOM	1
 # define LINK	2
-
+# define W 100
+# define H 25
 # define ARRAY_DATA(D, I) ((int*)(D)->data)[I]
 
 typedef struct		s_lem_in
@@ -90,4 +91,8 @@ void				pf_print_tab(int **tab, int row, int col);
 int					run_path_finder(int **routetab, int size, t_array ***sols, int start, int end);
 void				solutions_to_cmds(t_array **sols, t_array *cmds, int nb_ants, int nb_sols);
 void				run_print_map(int **routetab, int size, t_node *nodes, t_array a_cmds);
+
+t_node				*scale_map(t_node *nodes, int size);
+void				print_line(t_node l1, t_node l2, int color);
+void				print_map(t_node *nodes, int **routetab, int size);
 #endif
