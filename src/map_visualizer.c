@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:14:31 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/15 19:17:20 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/15 19:39:16 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,12 @@ void
 	{
 		j = -1;
 		while (++j < size)
-			if (routetab[i][j] != 1)
+			if (routetab[i][j] == 1 || routetab[j][i] == 1)
+			{
+				routetab[i][j] = 1;
+				routetab[j][i] = 1;
+			}
+			else
 				routetab[i][j] = 0;
 	}
 	i = 0;
@@ -223,6 +228,7 @@ void
 		}
 		ft_printf("\033[H\033[J");
 		print_map(nodes, routetab, size);
+		pf_print_tab(routetab, size, size);
 		system("sleep 0.4");
 		i++;
 	}
