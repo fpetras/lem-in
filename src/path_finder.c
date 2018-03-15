@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/14 19:03:24 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/15 15:52:01 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,8 +171,8 @@ void
 	int col;
 	int updated;
 
-	i = 0;
-	while (i < size)
+	i = -1;
+	while (++i < size)
 	{
 		j = 0;
 		while (j < size)
@@ -188,12 +188,8 @@ void
 				}
 				col++;
 			}
-			if (updated)
-				j = 0;
-			else
-				j++;
+			j = (updated ? 0 : j + 1);
 		}
-		i++;
 	}
 }
 
@@ -226,6 +222,44 @@ void
 	pf_print_tab(routetab, 8, 8);
 }
 
+char	*fta_string_(t_array *self, char *(*f)(long))
+{
+	t_array		ans;
+	int			i;
+	char		*tmp;
+
+	ans = NEW_ARRAY(char);
+	i = 0;
+	while (i < (int)self->size)
+	{
+		tmp = f(((int*)self->data)[i]);
+		fta_append(&ans, tmp, ft_strlen(tmp));
+		fta_append(&ans, " ", 1);
+		i++;
+	}
+	fta_trim(self);
+	return ((char *)ans.data);
+}
+
+t_array
+	**append_solutions(t_array **sols, int nb_sols, t_array sol)
+{
+	t_array		**temp;
+
+	temp = (t_array**)malloc(sizeof(t_array*) * nb_sols + 1);
+	if (nb_sols > 0)
+	{
+		ft_memcpy(temp, sols, sizeof(t_array*) * nb_sols);
+		free(sols);
+	}
+	sols = temp;
+	sols[nb_sols] = (t_array*)malloc(sizeof(t_array));
+	ft_memcpy(sols[nb_sols], &sol, sizeof(t_array));
+	sols[nb_sols]->data = (int*)malloc(sizeof(int) * sol.size);
+	ft_memcpy(sols[nb_sols]->data, sol.data, sizeof(int) * sol.size);
+	return (sols);
+}
+
 void
 	path_finder_dummy()
 {
@@ -242,8 +276,7 @@ void
 	int			i;
 	int			j;
 	t_array		sol;
-	t_array		*sols;
-	t_array		*temp;
+	t_array		**sols;
 	int			nb_sols;
 	t_node 		*nodes;
 
@@ -264,22 +297,22 @@ void
 	fta_append(&sol, &start, 1);
 	ft_printfln("First Algorithm:");
 	pf_print_tab(routetab, 8, 8);
-	nb_sols = 1;
+	nb_sols = 0;
 	while (path_finder_1(&routetab, 8, &sol, end))
 	{
-		temp = (t_array*)malloc(sizeof(t_array) * nb_sols);
-		if (sols != NULL)
-		{
-			ft_memcpy(temp, sols, sizeof(t_array) * nb_sols - 1);
-			free(sols);
-		}
-		sols = temp;
-		sols[nb_sols - 1] = sol;
-		fta_printdata_int(sol);
+		fta_printdata_int(&sol);
 		pf_print_tab(routetab, 8, 8);
+		sols = append_solutions(sols, nb_sols, sol);
+		nb_sols++;;
 		fta_clear(&sol);
 		sol = NEW_ARRAY(int);
 		fta_append(&sol, &start, 1);
+	}
+	i = 0;
+	while (i < nb_sols)
+	{
+		fta_printdata_int(sols[i]);
+		i++;
 	}
 	nodes = (t_node*)malloc(sizeof(t_node) * nb_room);
 	nodes[1] = (t_node){1, "Room 1", 23, 5};

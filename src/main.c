@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 09:34:58 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/14 19:19:15 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/14 20:22:46 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,8 @@ int		main(int ac, char **av)
 	// else
 		// ft_print_tab(map);
 	// print_map_dummy();
-	distance_calc_dummy();
-	// path_finder_dummy();
+	// distance_calc_dummy();
+	path_finder_dummy();
 	// ft_free_tab(map);
 	// ft_free_struct(&l);
 	return (0);
