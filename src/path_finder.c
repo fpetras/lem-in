@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/15 17:15:41 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/15 17:26:40 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,44 +260,34 @@ t_array
 	return (sols);
 }
 
-t_array
-	solutions_to_cmds(t_array **sols, int nb_ants, int nb_sols)
+void
+	solutions_to_cmds(t_array **sols, t_array *cmds, int nb_ants, int nb_sols)
 {
-	t_array	cmds;
 	int		col;
 	int		row;
 	int		offset;
 	char	*temp;
 
 	row = 0;
-	cmds = NEW_ARRAY(char);
 	while (1)
 	{
-		col = 0;
+		col = -1;
 		offset = 1;
-		while (col < nb_ants)
+		while (++col < nb_ants)
 		{
 			if (col % nb_sols == 0)
 				offset--;
-			if ((offset + row) < 0)
-				fta_append(&cmds, "-", 1);
-			else if ((offset + row) > (int)sols[col % nb_sols]->size - 1)
-				fta_append(&cmds, "-", 1);
+			if ((offset + row) < 0 || (offset + row) > (int)sols[col % nb_sols]->size - 1)
+				temp = ft_itoa(((int*)sols[col % nb_sols]->data)[0]);
 			else
-			{
 				temp = ft_itoa(((int*)sols[col % nb_sols]->data)[offset + row]);
-				fta_append(&cmds, temp, ft_strlen(temp));
-			}
-			fta_append(&cmds, " ", 1);
-			col++;
+			fta_append(cmds, temp, ft_strlen(temp));
+			fta_append(cmds, " ", 1);
 		}
-		fta_append(&cmds, "\n", 1);
-		if (offset + row == (int)sols[(col - 1) % nb_sols]->size - 1)
+		fta_append(cmds, "\n", 1);
+		if (offset + row++ == (int)sols[(col - 1) % nb_sols]->size - 1)
 			break ;
-		row++;
 	};
-	ft_printf("%s", (char*)cmds.data);
-	return (cmds);
 }
 
 void
@@ -316,6 +306,7 @@ void
 	int			i;
 	int			j;
 	t_array		sol;
+	t_array		cmds;
 	t_array		**sols;
 	int			nb_sols;
 	t_node 		*nodes;
@@ -363,5 +354,7 @@ void
 	nodes[6] = (t_node){6, "Room 6", 1, 5};
 	nodes[7] = (t_node){7, "Room 7", 4, 7};
 	nodes[0] = (t_node){0, "Room 0", 9, 5};
-	solutions_to_cmds(sols, nb_ants, nb_sols);
+	cmds = NEW_ARRAY(char);
+	solutions_to_cmds(sols, &cmds, nb_ants, nb_sols);
+	ft_printfln("%s", (char*)cmds.data);
 }
