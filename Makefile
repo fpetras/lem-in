@@ -6,7 +6,7 @@
 #    By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/01 20:07:00 by rnugroho          #+#    #+#              #
-#    Updated: 2018/03/15 21:18:34 by rnugroho         ###   ########.fr        #
+#    Updated: 2018/03/15 22:42:38 by rnugroho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ FILES:= main \
 		validation \
 		validation2 \
 		data_processing \
-		utilities utilities2 utilities3 \
+		utilities_1 utilities_2 utilities_3 \
 		free \
 		path_finder_1 path_finder_2 \
 		map_visualizer_1 map_visualizer_2 \
