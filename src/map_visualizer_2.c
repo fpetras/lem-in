@@ -6,13 +6,14 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 21:14:17 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/16 09:06:55 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/03/16 17:14:26 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static int	scale_map_row(t_node *nodes, int size, int row)
+static int
+	scale_map_row(t_node *nodes, int size, int row)
 {
 	int		i;
 	int		max_h;
@@ -31,11 +32,14 @@ static int	scale_map_row(t_node *nodes, int size, int row)
 		i++;
 	}
 	max_h -= min_h;
+	if (max_h == 0)
+		return (0);
 	sc_row = ((row - min_h) / (float)max_h) * H;
 	return ((int)sc_row);
 }
 
-static int	scale_map_col(t_node *nodes, int size, int col)
+static int
+	scale_map_col(t_node *nodes, int size, int col)
 {
 	int		i;
 	int		max_w;
@@ -54,11 +58,14 @@ static int	scale_map_col(t_node *nodes, int size, int col)
 		i++;
 	}
 	max_w -= min_w;
+	if (max_w == 0)
+		return (0);
 	sc_col = ((col - min_w) / (float)max_w) * W;
 	return ((int)sc_col);
 }
 
-t_node		*scale_map(t_node *nodes, int size)
+t_node
+	*scale_map(t_node *nodes, int size)
 {
 	t_node	*d_nodes;
 	int		i;
@@ -76,7 +83,8 @@ t_node		*scale_map(t_node *nodes, int size)
 	return (nodes);
 }
 
-void		print_line(t_node l1, t_node l2, int color)
+void
+	print_line(t_node l1, t_node l2, int color)
 {
 	t_node	a;
 	t_node	b;
@@ -102,7 +110,8 @@ void		print_line(t_node l1, t_node l2, int color)
 	}
 }
 
-void		print_map(t_node *nodes, int **routetab, int size)
+void
+	print_map(t_node *nodes, int **routetab, int size)
 {
 	int i;
 	int j;
