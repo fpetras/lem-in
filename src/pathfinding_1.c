@@ -6,13 +6,13 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/16 15:22:22 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/16 15:44:51 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static t_array	**append_solutions(t_array **sols, int nb_sols, t_array sol)
+static t_array	**append_solutions(t_array **sols, int nb_sols, t_array sol, int start)
 {
 	t_array		**temp;
 
@@ -27,6 +27,9 @@ static t_array	**append_solutions(t_array **sols, int nb_sols, t_array sol)
 	ft_memcpy(sols[nb_sols], &sol, sizeof(t_array));
 	sols[nb_sols]->data = (int*)malloc(sizeof(int) * sol.size);
 	ft_memcpy(sols[nb_sols]->data, sol.data, sizeof(int) * sol.size);
+	fta_clear(&sol);
+	sol = NEW_ARRAY(int);
+	fta_append(&sol, &start, 1);
 	return (sols);
 }
 
@@ -71,11 +74,8 @@ int				run_path_finder(int **routetab, int size, t_array ***sols,
 	fta_append(&sol, &start, 1);
 	while (path_finder_1(&routetab, size, &sol, end))
 	{
-		*sols = append_solutions((*sols), nb_sols, sol);
+		*sols = append_solutions((*sols), nb_sols, sol, start);
 		nb_sols++;
-		fta_clear(&sol);
-		sol = NEW_ARRAY(int);
-		fta_append(&sol, &start, 1);
 	}
 	fta_clear(&sol);
 	return (nb_sols);
