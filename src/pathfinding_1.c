@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/16 16:35:41 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/16 16:51:34 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ int
 	{
 		*sols = append_solutions((*sols), nb_sols, sol);
 		nb_sols++;
+		if (sol.size == 2)
+			break;
 		fta_clear(&sol);
 		sol = NEW_ARRAY(int);
 		fta_append(&sol, &start, 1);
