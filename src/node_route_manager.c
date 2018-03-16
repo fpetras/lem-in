@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   route_manager.c                                    :+:      :+:    :+:   */
+/*   node_route_manager.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/15 19:54:04 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/16 08:53:25 by fpetras          ###   ########.fr       */
+/*   Created: 2018/03/14 09:03:55 by fpetras           #+#    #+#             */
+/*   Updated: 2018/03/16 12:11:51 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void		ft_distance(int **routes, int size)
+static void		ft_distance(int **routes, int size)
 {
 	int i;
 	int j;
@@ -41,7 +41,7 @@ void		ft_distance(int **routes, int size)
 	}
 }
 
-static int	ft_connections(int i, int j, t_lem_in *l)
+static int		ft_connections(int i, int j, t_lem_in *l)
 {
 	int k;
 
@@ -56,7 +56,7 @@ static int	ft_connections(int i, int j, t_lem_in *l)
 	return (l->nb_rooms + 1);
 }
 
-int			**ft_init_table(t_lem_in *l)
+int				**ft_init_route(t_lem_in *l)
 {
 	int i;
 	int j;
@@ -81,10 +81,11 @@ int			**ft_init_table(t_lem_in *l)
 				connections[i][j] = ft_connections(i, j, l);
 		}
 	}
+	ft_distance(connections, l->nb_rooms);
 	return (connections);
 }
 
-t_node		*ft_init_rooms(t_lem_in *l)
+t_node			*ft_init_nodes(t_lem_in *l)
 {
 	int		i;
 	t_node	*rooms;
@@ -101,5 +102,6 @@ t_node		*ft_init_rooms(t_lem_in *l)
 		rooms[i].row = ft_atoi(&l->rooms[i][ft_2nd_coord_index(l->rooms[i])]);
 		i++;
 	}
+	ft_remove_coordinates(l);
 	return (rooms);
 }
