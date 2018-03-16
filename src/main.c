@@ -75,36 +75,6 @@ static char	**ft_read_map(void)
 	return (ft_save_map(file[0]));
 }
 
-static int	ft_options(int ac, char **av)
-{
-	if (ac == 2 && ft_strequ(av[1], "-v"))
-		g_option_v = 1;
-	else if (ac == 3 && ft_strequ(av[1], "-f"))
-	{
-		if ((g_fd = open(av[2], O_RDONLY)) == -1)
-		{
-			ft_dprintf(2, "ERROR\n");
-			return (-1);
-		}
-	}
-	else if (ac == 3 && (ft_strequ(av[1], "-vf") || ft_strequ(av[1], "-fv")))
-	{
-		g_option_v = 1;
-		if ((g_fd = open(av[2], O_RDONLY)) == -1)
-		{
-			ft_dprintf(2, "ERROR\n");
-			return (-1);
-		}
-	}
-	else
-	{
-		ft_dprintf(2, "usage: %s [-v] < map\n", av[0]);
-		ft_dprintf(2, "       %s [-v] -f map\n", av[0]);
-		return (-1);
-	}
-	return (0);
-}
-
 int			main(int ac, char **av)
 {
 	char		**map;

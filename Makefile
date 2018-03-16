@@ -12,6 +12,7 @@
 
 NAME:= lem-in
 FILES:= main \
+		options \
 		parsing \
 		data_processing \
 		validation_1 validation_2 \

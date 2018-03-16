@@ -48,6 +48,7 @@ typedef struct		s_node
 	int				row;
 }					t_node;
 
+int					ft_options(int ac, char **av);
 int					ft_parsing(char **map, t_lem_in *l);
 int					ft_get_data(char **map, t_lem_in *l);
 
