@@ -6,13 +6,14 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/16 15:44:51 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/16 15:52:11 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static t_array	**append_solutions(t_array **sols, int nb_sols, t_array sol, int start)
+static t_array
+	**append_solutions(t_array **sols, int nb_sols, t_array sol)
 {
 	t_array		**temp;
 
@@ -27,9 +28,6 @@ static t_array	**append_solutions(t_array **sols, int nb_sols, t_array sol, int 
 	ft_memcpy(sols[nb_sols], &sol, sizeof(t_array));
 	sols[nb_sols]->data = (int*)malloc(sizeof(int) * sol.size);
 	ft_memcpy(sols[nb_sols]->data, sol.data, sizeof(int) * sol.size);
-	fta_clear(&sol);
-	sol = NEW_ARRAY(int);
-	fta_append(&sol, &start, 1);
 	return (sols);
 }
 
@@ -63,25 +61,33 @@ void			solutions_to_cmds(t_array **sols, t_array *cmds,
 	}
 }
 
-int				run_path_finder(int **routetab, int size, t_array ***sols,
-				int start, int end)
+int
+	run_path_finder(int **routetab, t_array ***sols, t_node *rooms, t_lem_in *l)
 {
 	t_array		sol;
 	int			nb_sols;
+	int			start;
+	int			end;
 
+	start = li_get_nodes_index(rooms, l, l->start);
+	end = li_get_nodes_index(rooms, l, l->end);
 	nb_sols = 0;
 	sol = NEW_ARRAY(int);
 	fta_append(&sol, &start, 1);
-	while (path_finder_1(&routetab, size, &sol, end))
+	while (path_finder_1(&routetab, l->nb_rooms, &sol, end))
 	{
-		*sols = append_solutions((*sols), nb_sols, sol, start);
+		*sols = append_solutions((*sols), nb_sols, sol);
 		nb_sols++;
+		fta_clear(&sol);
+		sol = NEW_ARRAY(int);
+		fta_append(&sol, &start, 1);
 	}
 	fta_clear(&sol);
 	return (nb_sols);
 }
 
-static void		li_print_solutions(t_array a_cmds, t_node *rooms, t_lem_in *l)
+static void
+	li_print_solutions(t_array a_cmds, t_node *rooms, t_lem_in *l)
 {
 	int			i;
 	int			j;
@@ -110,7 +116,8 @@ static void		li_print_solutions(t_array a_cmds, t_node *rooms, t_lem_in *l)
 	ft_strtab_free(cmds);
 }
 
-int				ft_pathfinding(char **map, t_lem_in *l)
+int
+	ft_pathfinding(char **map, t_lem_in *l)
 {
 	t_node		*rooms;
 	int			**route;
@@ -125,9 +132,7 @@ int				ft_pathfinding(char **map, t_lem_in *l)
 		ft_free_nodes(rooms, l->nb_rooms);
 		return (-1);
 	}
-	nb_sols = run_path_finder(route, l->nb_rooms, &sols,
-		li_get_nodes_index(rooms, l, l->start),
-		li_get_nodes_index(rooms, l, l->end));
+	nb_sols = run_path_finder(route, &sols, rooms, l);
 	cmds = NEW_ARRAY(char);
 	solutions_to_cmds(sols, &cmds, l->nb_ants, nb_sols);
 	(g_option_v == 1) ? run_print_map(route, l->nb_rooms, rooms, cmds) : 0;

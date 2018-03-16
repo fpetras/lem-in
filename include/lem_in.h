@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 09:32:55 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/16 15:21:25 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/16 15:49:58 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ void				ft_add_coordinates(char *room);
 int					ft_1st_coord_index(char *room);
 int					ft_2nd_coord_index(char *room);
 
-int					run_path_finder(int **routetab, int size, t_array ***sols,
-					int start, int end);
 void				solutions_to_cmds(t_array **sols, t_array *cmds,
 					int nb_ants, int nb_sols);
 
