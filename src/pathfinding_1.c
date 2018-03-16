@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/16 18:19:46 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/16 18:35:10 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,25 +98,23 @@ static void
 	char		**cmds;
 	char		**icmds;
 
-	i = 0;
+	i = -1;
 	cmds = ft_strsplit(((char*)a_cmds.data), '\n');
-	while (cmds[i])
+	while (cmds[++i])
 	{
 		icmds = ft_strsplit(cmds[i], ' ');
-		j = 0;
-		if (i > 0)
-			ft_printf("\n");
-		while (j < ft_wordcounter(cmds[i], ' '))
+		j = -1;
+		(i > 0) ? ft_printf("\n") : 0;
+		while (++j < ft_wordcounter(cmds[i], ' '))
 		{
 			if (mv_get_prev_node(cmds, i, j, 1) != ft_atoi(icmds[j]) &&
 				li_get_nodes_index(rooms, l, l->start) != ft_atoi(icmds[j]))
 				ft_printf("L%d-%s ", j + 1,
-				li_get_nodes_name(rooms, l, ft_atoi(icmds[j])));
-			j++;
+					li_get_nodes_name(rooms, l, ft_atoi(icmds[j])));
 		}
 		ft_strtab_free(icmds);
-		i++;
 	}
+	ft_printf("\n");
 	ft_strtab_free(cmds);
 }
 
