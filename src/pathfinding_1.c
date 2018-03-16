@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/16 15:52:11 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/16 16:35:41 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ static t_array
 	return (sols);
 }
 
-void			solutions_to_cmds(t_array **sols, t_array *cmds,
-				int nb_ants, int nb_sols)
+void
+	solutions_to_cmds(t_array **sols, t_array *cmds, int nb_ants, int nb_sols)
 {
 	int		col;
 	int		row;
