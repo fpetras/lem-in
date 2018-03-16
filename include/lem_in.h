@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 09:32:55 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/16 13:21:37 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/03/16 15:21:25 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,5 @@ void				ft_free_int_tab(int **tab, int size);
 void				ft_free_nodes(t_node *rooms, int size);
 void				ft_free_struct(t_lem_in *l);
 void				free_sols_cmds(t_array **sols, t_array cmds, int nb_sols);
-
+int					mv_get_prev_node(char **cmd, int i, int j, int start);
 #endif

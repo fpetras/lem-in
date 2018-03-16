@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/16 13:19:27 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/03/16 15:22:22 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ static void		li_print_solutions(t_array a_cmds, t_node *rooms, t_lem_in *l)
 			ft_printf("\n");
 		while (j < ft_wordcounter(cmds[i], ' '))
 		{
-			if (li_get_nodes_index(rooms, l, l->end) != ft_atoi(icmds[j]) &&
+			if (mv_get_prev_node(cmds, i, j, 1) != ft_atoi(icmds[j]) &&
 				li_get_nodes_index(rooms, l, l->start) != ft_atoi(icmds[j]))
 				ft_printf("L%d-%s ", j + 1,
 				li_get_nodes_name(rooms, l, ft_atoi(icmds[j])));
