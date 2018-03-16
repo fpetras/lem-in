@@ -58,7 +58,7 @@ static char	**ft_read_map(void)
 	char	*file[2];
 
 	file[0] = ft_strnew(0);
-	while ((ret = read(0, &buf, BUFF_SIZE)) > 0)
+	while ((ret = read(g_fd, &buf, BUFF_SIZE)) > 0)
 	{
 		buf[ret] = '\0';
 		file[1] = file[0];
@@ -70,16 +70,36 @@ static char	**ft_read_map(void)
 			return (NULL);
 		}
 	}
+	if (g_fd > 0)
+		close(g_fd);
 	return (ft_save_map(file[0]));
 }
 
-static int	ft_option(int ac, char **av)
+static int	ft_options(int ac, char **av)
 {
 	if (ac == 2 && ft_strequ(av[1], "-v"))
 		g_option_v = 1;
+	else if (ac == 3 && ft_strequ(av[1], "-f"))
+	{
+		if ((g_fd = open(av[2], O_RDONLY)) == -1)
+		{
+			ft_dprintf(2, "ERROR\n");
+			return (-1);
+		}
+	}
+	else if (ac == 3 && (ft_strequ(av[1], "-vf") || ft_strequ(av[1], "-fv")))
+	{
+		g_option_v = 1;
+		if ((g_fd = open(av[2], O_RDONLY)) == -1)
+		{
+			ft_dprintf(2, "ERROR\n");
+			return (-1);
+		}
+	}
 	else
 	{
 		ft_dprintf(2, "usage: %s [-v] < map\n", av[0]);
+		ft_dprintf(2, "       %s [-v] -f map\n", av[0]);
 		return (-1);
 	}
 	return (0);
@@ -91,8 +111,9 @@ int			main(int ac, char **av)
 	t_lem_in	l;
 
 	g_option_v = 0;
+	g_fd = 0;
 	if (ac > 1)
-		if (ft_option(ac, av) == -1)
+		if (ft_options(ac, av) == -1)
 			return (-1);
 	if ((map = ft_read_map()) == NULL)
 	{

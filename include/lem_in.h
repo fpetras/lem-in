@@ -24,6 +24,7 @@
 # define ARRAY_DATA(D, I) ((int*)(D)->data)[I]
 
 int					g_option_v;
+int					g_fd;
 
 typedef struct		s_lem_in
 {
@@ -92,6 +93,7 @@ void				pf_print_tab(int **tab, int row, int col);
 int					path_finder_1(int ***routetab, int size,
 					t_array *sol, int end);
 
+int					mv_get_prev_node(char **cmd, int i, int j, int start);
 int					li_get_nodes_index(t_node *rooms, t_lem_in *l, char *name);
 char				*li_get_nodes_name(t_node *rooms, t_lem_in *l, int index);
 void				fta_append_space(t_array *self, char *data);
@@ -103,5 +105,4 @@ void				ft_free_int_tab(int **tab, int size);
 void				ft_free_nodes(t_node *rooms, int size);
 void				ft_free_struct(t_lem_in *l);
 void				free_sols_cmds(t_array **sols, t_array cmds, int nb_sols);
-int					mv_get_prev_node(char **cmd, int i, int j, int start);
 #endif
