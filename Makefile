@@ -6,15 +6,15 @@
 #    By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/01 20:07:00 by rnugroho          #+#    #+#              #
-#    Updated: 2018/03/16 12:11:13 by fpetras          ###   ########.fr        #
+#    Updated: 2018/03/16 12:27:55 by fpetras          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME:= lem-in
 FILES:= main \
 		parsing \
-		validation_1 validation_2 \
 		data_processing \
+		validation_1 validation_2 \
 		pathfinding_1 pathfinding_2 \
 		node_route_manager \
 		map_visualizer_1 map_visualizer_2 \
