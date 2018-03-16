@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/16 17:28:25 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/16 18:19:46 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ static t_array
 	return (sols);
 }
 
+#define LAST(A) sols[A]->size - 1
+
 void
-	solutions_to_cmds(t_array **sols, t_array *cmds, int nb_ants, int nb_sols)
+	solutions_to_cmds(t_array **sols, t_array *cmds, int nb_ants, int n)
 {
 	int		col;
 	int		row;
@@ -46,18 +48,18 @@ void
 		offset = 1;
 		while (++col < nb_ants)
 		{
-			offset = (col % nb_sols == 0) ? offset - 1 : offset;
+			offset = (col % n == 0) ? offset - 1 : offset;
 			if ((offset + row) < 0)
-				temp = ft_itoa(((int*)sols[col % nb_sols]->data)[0]);
+				temp = ft_itoa(((int*)sols[col % n]->data)[0]);
 			else
-				temp = ((offset + row) > (int)sols[col % nb_sols]->size - 1) ?
-					ft_itoa(((int*)sols[col % nb_sols]->data)[sols[col % nb_sols]->size - 1]) :
-					ft_itoa(((int*)sols[col % nb_sols]->data)[offset + row]);
+				temp = ((offset + row) > (int)LAST(col % n)) ?
+					ft_itoa(((int*)sols[col % n]->data)[LAST(col % n)]) :
+					ft_itoa(((int*)sols[col % n]->data)[offset + row]);
 			fta_append_space(cmds, temp);
 			free(temp);
 		}
 		fta_append(cmds, "\n", 1);
-		row = (offset + row == (int)sols[(col - 1) % nb_sols]->size - 1) ? -1 : row + 1;
+		row = (offset + row == (int)LAST((col - 1) % n)) ? -1 : row + 1;
 	}
 }
 
