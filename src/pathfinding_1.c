@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/16 12:32:42 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/03/16 13:19:27 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,8 @@ static void		li_print_solutions(t_array a_cmds, t_node *rooms, t_lem_in *l)
 
 int				ft_pathfinding(char **map, t_lem_in *l)
 {
-	int			**route;
 	t_node		*rooms;
+	int			**route;
 	t_array		**sols;
 	t_array		cmds;
 	int			nb_sols;

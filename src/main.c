@@ -6,7 +6,7 @@
 /*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 09:34:58 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/16 08:51:19 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/03/16 13:18:14 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static char	**ft_read_map(void)
 		file[1] = file[0];
 		file[0] = ft_strjoin(file[1], buf);
 		free(file[1]);
-		if (file[0][0] != '#' && !ft_isdigit(file[0][0]))
+		if (file[0][0] != '#' && file[0][0] != '+' && !ft_isdigit(file[0][0]))
 		{
 			free(file[0]);
 			return (NULL);

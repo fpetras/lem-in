@@ -6,7 +6,7 @@
 /*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 09:32:55 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/16 12:14:12 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/03/16 13:21:37 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int					ft_check_second_link(t_lem_in *l);
 int					ft_check_second_link2(char *second_link, t_lem_in *l);
 int					ft_check_link_to_same_room(t_lem_in *l);
 
+int					ft_valid_ants(char *line);
 int					ft_isroom(char *line);
 int					ft_islink(char *line);
 int					ft_isnumber(char *coord);
