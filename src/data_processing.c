@@ -6,13 +6,13 @@
 /*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 10:21:42 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/08 15:26:28 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/03/16 08:51:58 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int		ft_get_room_or_link(char *elem, t_lem_in *l, int i)
+static int	ft_get_room_or_link(char *elem, t_lem_in *l, int i)
 {
 	if (i == ROOM)
 	{
@@ -27,7 +27,7 @@ int		ft_get_room_or_link(char *elem, t_lem_in *l, int i)
 	return (0);
 }
 
-int		ft_get_start_or_end(char **map, t_lem_in *l, int i)
+static int	ft_get_start_or_end(char **map, t_lem_in *l, int i)
 {
 	if (i == START)
 	{
@@ -50,7 +50,7 @@ int		ft_get_start_or_end(char **map, t_lem_in *l, int i)
 	return (0);
 }
 
-int		ft_get_ant_nb(char **map, t_lem_in *l)
+static int	ft_get_ant_nb(char **map, t_lem_in *l)
 {
 	int i;
 	int nb_ants;
@@ -79,7 +79,7 @@ int		ft_get_ant_nb(char **map, t_lem_in *l)
 		return (-1);
 }
 
-int		ft_get_data(char **map, t_lem_in *l)
+int			ft_get_data(char **map, t_lem_in *l)
 {
 	int ret;
 

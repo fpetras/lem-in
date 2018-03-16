@@ -6,31 +6,13 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 19:54:04 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/15 22:17:25 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/16 08:53:25 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void
-	ft_print_nodes(t_node *rooms, t_lem_in *l)
-{
-	int i;
-
-	i = 0;
-	while (i < l->nb_rooms)
-	{
-		ft_printf("--------------------\n");
-		ft_printf("index: %d\n", rooms[i].index);
-		ft_printf("name:  %s\n", rooms[i].name);
-		ft_printf("col:   %d\n", rooms[i].col);
-		ft_printf("row:   %d\n", rooms[i].row);
-		i++;
-	}
-}
-
-void
-	ft_distance(int **routes, int size)
+void		ft_distance(int **routes, int size)
 {
 	int i;
 	int j;
@@ -59,8 +41,7 @@ void
 	}
 }
 
-int
-	ft_connections(int i, int j, t_lem_in *l)
+static int	ft_connections(int i, int j, t_lem_in *l)
 {
 	int k;
 
@@ -103,11 +84,9 @@ int			**ft_init_table(t_lem_in *l)
 	return (connections);
 }
 
-t_node
-	*ft_init_rooms(t_lem_in *l)
+t_node		*ft_init_rooms(t_lem_in *l)
 {
 	int		i;
-	int		j;
 	t_node	*rooms;
 
 	i = 0;
@@ -115,7 +94,6 @@ t_node
 		return (NULL);
 	while (i < l->nb_rooms)
 	{
-		j = 1;
 		rooms[i].index = i;
 		rooms[i].name = ft_strdup(l->rooms[i]);
 		ft_add_coordinates(l->rooms[i]);

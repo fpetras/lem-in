@@ -3,36 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 09:34:58 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/15 23:14:15 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/16 08:51:19 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int		ft_parsing(char **map, t_lem_in *l)
-{
-	if (ft_get_data(map, l) == -1)
-		return (-1);
-	if (ft_check_coordinates(l) == -1)
-		return (-1);
-	if (!l->start || !l->end || !ft_tablen(l->rooms) || !ft_tablen(l->links))
-		return (-1);
-	ft_remove_coordinates(l);
-	if (ft_check_identical_rooms(l) == -1)
-		return (-1);
-	if (ft_check_first_link(l) == -1)
-		return (-1);
-	if (ft_check_second_link(l) == -1)
-		return (-1);
-	if (ft_check_link_to_same_room(l) == -1)
-		return (-1);
-	return (0);
-}
-
-int		ft_init_struct(t_lem_in *l, char **map)
+static int	ft_init_struct(t_lem_in *l, char **map)
 {
 	l->i = 0;
 	l->j = 0;
@@ -53,7 +33,7 @@ int		ft_init_struct(t_lem_in *l, char **map)
 	return (0);
 }
 
-char	**ft_save_map(char *file)
+static char	**ft_save_map(char *file)
 {
 	char **map;
 
@@ -71,7 +51,7 @@ char	**ft_save_map(char *file)
 	return (NULL);
 }
 
-char	**ft_read_map(void)
+static char	**ft_read_map(void)
 {
 	int		ret;
 	char	buf[BUFF_SIZE + 1];
@@ -93,38 +73,39 @@ char	**ft_read_map(void)
 	return (ft_save_map(file[0]));
 }
 
-int
-	getoptions(char **av)
+static int	ft_option(int ac, char **av)
 {
-	int isverbose;
-
-	if (ft_strcmp(av[1], "-v") == 0)
-		isverbose = 1;
+	if (ac == 2 && ft_strequ(av[1], "-v"))
+		g_option_v = 1;
 	else
-		isverbose = 0;
-	return (isverbose);
-}
-
-int		main(int ac, char **av)
-{
-	char		**map;
-	t_lem_in	l;
-	int			isverbose;
-
-	isverbose = 0;
-	if ( ac > 1 && (ac > 2 || (isverbose = getoptions(av)) == 0))
 	{
 		ft_dprintf(2, "usage: %s [-v] < map\n", av[0]);
 		return (-1);
 	}
-	if ((map = ft_read_map()) == NULL || ft_init_struct(&l, map) == -1)
+	return (0);
+}
+
+int			main(int ac, char **av)
+{
+	char		**map;
+	t_lem_in	l;
+
+	g_option_v = 0;
+	if (ac > 1)
+		if (ft_option(ac, av) == -1)
+			return (-1);
+	if ((map = ft_read_map()) == NULL)
 	{
 		ft_dprintf(2, "ERROR\n");
-		if (ft_init_struct(&l, map) == -1)
-			ft_free_tab(map);
 		return (-1);
 	}
-	if (ft_parsing(map, &l) == -1 || ft_pathfinding(&l, map, isverbose) == -1)
+	if (ft_init_struct(&l, map) == -1)
+	{
+		ft_dprintf(2, "ERROR\n");
+		ft_free_tab(map);
+		return (-1);
+	}
+	if (ft_parsing(map, &l) == -1 || ft_pathfinding(map, &l) == -1)
 		ft_dprintf(2, "ERROR\n");
 	ft_free_tab(map);
 	ft_free_struct(&l);

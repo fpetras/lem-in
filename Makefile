@@ -6,20 +6,20 @@
 #    By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/01 20:07:00 by rnugroho          #+#    #+#              #
-#    Updated: 2018/03/15 22:42:38 by rnugroho         ###   ########.fr        #
+#    Updated: 2018/03/16 08:44:35 by fpetras          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME:= lem-in
 FILES:= main \
-		validation \
-		validation2 \
+		parsing \
+		validation_1 validation_2 \
 		data_processing \
-		utilities_1 utilities_2 utilities_3 \
-		free \
-		path_finder_1 path_finder_2 \
+		route_manager \
+		pathfinding_1 pathfinding_2 \
 		map_visualizer_1 map_visualizer_2 \
-		route_manager
+		utilities_1 utilities_2 utilities_3 \
+		free
 
 # ----- Libft ------
 LFTDIR:=./libft

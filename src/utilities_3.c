@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utilities3.c                                       :+:      :+:    :+:   */
+/*   utilities_3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 11:01:00 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/15 22:18:11 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/16 08:43:31 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,13 @@ void	ft_print_tab(char **tab)
 	}
 }
 
-void
-	fta_append_space(t_array *self, char *data)
+void	fta_append_space(t_array *self, char *data)
 {
 	fta_append(self, data, ft_strlen(data));
 	fta_append(self, " ", 1);
 }
 
-int
-	li_get_nodes_index(t_node *rooms, t_lem_in *l, char *name)
+int		li_get_nodes_index(t_node *rooms, t_lem_in *l, char *name)
 {
 	int i;
 
@@ -50,14 +48,13 @@ int
 	while (i < l->nb_rooms)
 	{
 		if (ft_strcmp(rooms[i].name, name) == 0)
-			break;
+			break ;
 		i++;
 	}
 	return (rooms[i].index);
 }
 
-char
-	*li_get_nodes_name(t_node *rooms, t_lem_in *l, int index)
+char	*li_get_nodes_name(t_node *rooms, t_lem_in *l, int index)
 {
 	int i;
 
@@ -65,7 +62,7 @@ char
 	while (i < l->nb_rooms)
 	{
 		if (rooms[i].index == index)
-			break;
+			break ;
 		i++;
 	}
 	return (rooms[i].name);

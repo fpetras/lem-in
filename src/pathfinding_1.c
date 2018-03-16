@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   path_finder_1.c                                    :+:      :+:    :+:   */
+/*   pathfinding_1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/15 22:55:44 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/16 09:08:17 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_array
-	**append_solutions(t_array **sols, int nb_sols, t_array sol)
+static t_array	**append_solutions(t_array **sols, int nb_sols, t_array sol)
 {
 	t_array		**temp;
 
@@ -31,8 +30,8 @@ t_array
 	return (sols);
 }
 
-void
-	solutions_to_cmds(t_array **sols, t_array *cmds, int nb_ants, int nb_sols)
+void			solutions_to_cmds(t_array **sols, t_array *cmds,
+				int nb_ants, int nb_sols)
 {
 	int		col;
 	int		row;
@@ -61,8 +60,8 @@ void
 	};
 }
 
-int
-	run_path_finder(int **routetab, int size, t_array ***sols, int start, int end)
+int			run_path_finder(int **routetab, int size, t_array ***sols,
+			int start, int end)
 {
 	t_array		sol;
 	int			nb_sols;
@@ -82,8 +81,7 @@ int
 	return (nb_sols);
 }
 
-void
-	li_print_solutions(t_array a_cmds, t_node *rooms, t_lem_in *l)
+static void	li_print_solutions(t_array a_cmds, t_node *rooms, t_lem_in *l)
 {
 	int			i;
 	int			j;
@@ -111,7 +109,7 @@ void
 	ft_strtab_free(cmds);
 }
 
-int			ft_pathfinding(t_lem_in *l, char **map, int isverbose)
+int			ft_pathfinding(char **map, t_lem_in *l)
 {
 	int			**connections;
 	t_node		*rooms;
@@ -131,7 +129,7 @@ int			ft_pathfinding(t_lem_in *l, char **map, int isverbose)
 		li_get_nodes_index(rooms, l, l->start), li_get_nodes_index(rooms, l, l->end));
 	cmds = NEW_ARRAY(char);
 	solutions_to_cmds(sols, &cmds, l->nb_ants, nb_sols);
-	if (isverbose)
+	if (g_option_v == 1)
 		run_print_map(connections, l->nb_rooms, rooms, cmds);
 	ft_print_tab(map);
 	li_print_solutions(cmds, rooms, l);

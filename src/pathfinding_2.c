@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   path_finder_2.c                                    :+:      :+:    :+:   */
+/*   pathfinding_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/15 21:18:17 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/16 09:01:05 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int
-	**ft_init_tab(int size)
+int			**ft_init_tab(int size)
 {
 	int **tab;
 	int i;
@@ -31,8 +30,7 @@ int
 	return (tab);
 }
 
-void
-	pf_print_tab(int **tab, int row, int col)
+void		pf_print_tab(int **tab, int row, int col)
 {
 	int i;
 	int j;
@@ -58,8 +56,7 @@ void
 	}
 }
 
-int
-	get_min_path(int **routetab, int size, int row, int end)
+static int	get_min_path(int **routetab, int size, int row, int end)
 {
 	int col;
 	int min;
@@ -81,8 +78,7 @@ int
 	return (node);
 }
 
-int
-	in_solutions(t_array *sol, int node)
+static int	in_solutions(t_array *sol, int node)
 {
 	int i;
 
@@ -100,8 +96,7 @@ int
 ** Does not tolerate any intersections
 */
 
-int
-	path_finder_1(int ***routetab, int size, t_array *sol, int end)
+int			path_finder_1(int ***routetab, int size, t_array *sol, int end)
 {
 	int node;
 	int	temp;

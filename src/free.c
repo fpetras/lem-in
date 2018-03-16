@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 14:44:18 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/15 22:01:20 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/16 08:40:36 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,7 @@ void	ft_free_tab(char **tab)
 	free(tab);
 }
 
-void
-	free_sols_cmds(t_array **sols, t_array cmds, int nb_sols)
+void	free_sols_cmds(t_array **sols, t_array cmds, int nb_sols)
 {
 	int i;
 
