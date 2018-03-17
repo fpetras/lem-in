@@ -3,21 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 09:34:58 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/16 13:18:14 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/03/17 06:51:26 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static int	ft_init_struct(t_lem_in *l, char **map)
+static int
+	ft_init_struct(t_lem_in *l, char **map)
 {
 	l->i = 0;
 	l->j = 0;
 	l->k = 0;
 	l->nb_ants = 0;
+	l->start = NULL;
+	l->end = NULL;
 	if ((l->nb_rooms = ft_count_rooms(map)) == -1)
 		return (-1);
 	l->nb_links = ft_count_links(map);
@@ -33,52 +36,41 @@ static int	ft_init_struct(t_lem_in *l, char **map)
 	return (0);
 }
 
-static char	**ft_save_map(char *file)
+static char
+	**ft_read_map(void)
 {
-	char **map;
+	char		**map;
+	char		**temp;
+	char		*line;
+	int			n;
 
-	if (file && ft_check_empty_lines(file) == -1)
+	n = 1;
+	map = NULL;
+	while (get_next_line(g_fd, &line))
 	{
-		free(file);
-		return (NULL);
-	}
-	else if (file)
-	{
-		map = ft_strsplit(file, '\n');
-		free(file);
-		return (map);
-	}
-	return (NULL);
-}
-
-static char	**ft_read_map(void)
-{
-	int		ret;
-	char	buf[BUFF_SIZE + 1];
-	char	*file[2];
-
-	file[0] = ft_strnew(0);
-	while ((ret = read(g_fd, &buf, BUFF_SIZE)) > 0)
-	{
-		buf[ret] = '\0';
-		file[1] = file[0];
-		file[0] = ft_strjoin(file[1], buf);
-		free(file[1]);
-		if (file[0][0] != '#' && file[0][0] != '+' && !ft_isdigit(file[0][0]))
+		temp = (char**)malloc(sizeof(char*) * n + 1);
+		if (n > 1)
 		{
-			free(file[0]);
-			return (NULL);
+			ft_memcpy(temp, map, sizeof(char*) * n);
+			temp[n] = NULL;
+			free(map);
 		}
+		map = temp;
+		map[n - 1] = (char*)malloc(sizeof(char) * ft_strlen(line) + 1);
+		ft_memcpy(map[n - 1], line, sizeof(char) * ft_strlen(line) + 1);
+		n++;
+		free(line);
 	}
 	if (g_fd > 0)
 		close(g_fd);
-	return (ft_save_map(file[0]));
+	return (map);
 }
 
-int			main(int ac, char **av)
+int
+	main(int ac, char **av)
 {
-	char		**map;
 	t_lem_in	l;
+	char		**map;
 
 	g_option_v = 0;
 	g_fd = 0;
