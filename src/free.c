@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 14:44:18 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/16 08:40:36 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/03/17 07:28:30 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	ft_free_struct(t_lem_in *l)
+void
+	ft_free_struct(t_lem_in *l)
 {
 	int i;
 
@@ -38,7 +39,8 @@ void	ft_free_struct(t_lem_in *l)
 		free(l->links);
 }
 
-void	ft_free_nodes(t_node *rooms, int size)
+void
+	ft_free_nodes(t_node *rooms, int size)
 {
 	int i;
 
@@ -51,7 +53,8 @@ void	ft_free_nodes(t_node *rooms, int size)
 	free(rooms);
 }
 
-void	ft_free_int_tab(int **tab, int size)
+void
+	ft_free_int_tab_and_nodes(int **tab, t_node *rooms, int size)
 {
 	int i;
 
@@ -62,9 +65,17 @@ void	ft_free_int_tab(int **tab, int size)
 		i++;
 	}
 	free(tab);
+	i = 0;
+	while (i < size)
+	{
+		free(rooms[i].name);
+		i++;
+	}
+	free(rooms);
 }
 
-void	ft_free_tab(char **tab)
+void
+	ft_free_tab(char **tab)
 {
 	int i;
 
@@ -77,7 +88,8 @@ void	ft_free_tab(char **tab)
 	free(tab);
 }
 
-void	free_sols_cmds(t_array **sols, t_array cmds, int nb_sols)
+void
+	free_sols_cmds(t_array **sols, t_array cmds, int nb_sols)
 {
 	int i;
 
