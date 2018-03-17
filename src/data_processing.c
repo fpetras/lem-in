@@ -6,7 +6,7 @@
 /*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 10:21:42 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/13 11:04:15 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/03/17 09:47:01 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	ft_get_start_or_end(char **map, t_lem_in *l, int i)
 {
 	if (i == START)
 	{
-		while (map[l->i][0] == '#')
+		while (map[l->i][0] == '#' && map[l->i + 1])
 			l->i++;
 		if (l->start)
 			return (-1);
@@ -40,7 +40,7 @@ static int	ft_get_start_or_end(char **map, t_lem_in *l, int i)
 	}
 	else if (i == END)
 	{
-		while (map[l->i][0] == '#')
+		while (map[l->i][0] == '#' && map[l->i + 1])
 			l->i++;
 		if (l->end)
 			return (-1);
