@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/17 05:25:09 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/17 07:12:04 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,12 @@ int
 		ft_free_nodes(rooms, l->nb_rooms);
 		return (-1);
 	}
-	nb_sols = run_path_finder(route, &sols, rooms, l);
+	if ((nb_sols = run_path_finder(route, &sols, rooms, l)) == 0)
+	{
+		ft_free_int_tab(route, l->nb_rooms);
+		ft_free_nodes(rooms, l->nb_rooms);
+		return (-1);
+	}
 	cmds = NEW_ARRAY(char);
 	solutions_to_cmds(sols, &cmds, l->nb_ants, nb_sols);
 	(g_option_v == 1) ? run_print_map(route, l->nb_rooms, rooms, cmds) : 0;
