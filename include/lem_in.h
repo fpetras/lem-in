@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 09:32:55 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/16 15:49:58 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/17 04:55:38 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void				print_map(t_node *nodes, int **routetab, int size);
 int					**ft_init_tab(int size);
 void				pf_print_tab(int **tab, int row, int col);
 
+void				ft_distance(int **routes, int size);
 int					path_finder_1(int ***routetab, int size,
 					t_array *sol, int end);
 

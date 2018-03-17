@@ -6,13 +6,14 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/16 09:01:05 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/03/17 05:19:36 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int			**ft_init_tab(int size)
+int
+	**ft_init_tab(int size)
 {
 	int **tab;
 	int i;
@@ -30,7 +31,8 @@ int			**ft_init_tab(int size)
 	return (tab);
 }
 
-void		pf_print_tab(int **tab, int row, int col)
+void
+	pf_print_tab(int **tab, int row, int col)
 {
 	int i;
 	int j;
@@ -56,7 +58,8 @@ void		pf_print_tab(int **tab, int row, int col)
 	}
 }
 
-static int	get_min_path(int **routetab, int size, int row, int end)
+static int
+	get_min_path(int **routetab, int size, int row, int end)
 {
 	int col;
 	int min;
@@ -78,7 +81,8 @@ static int	get_min_path(int **routetab, int size, int row, int end)
 	return (node);
 }
 
-static int	in_solutions(t_array *sol, int node)
+static int
+	in_solutions(t_array *sol, int node)
 {
 	int i;
 
@@ -96,18 +100,15 @@ static int	in_solutions(t_array *sol, int node)
 ** Does not tolerate any intersections
 */
 
-int			path_finder_1(int ***routetab, int size, t_array *sol, int end)
+int
+	path_finder_1(int ***routetab, int size, t_array *sol, int end)
 {
 	int node;
 	int	temp;
-	int t_node;
 
 	node = get_min_path(*routetab, size, ARRAY_DATA(sol, sol->size - 1), end);
 	if (node == end)
-	{
-		fta_append(sol, &node, 1);
-		return (1);
-	}
+		return (fta_append(sol, &node, 1) || 1);
 	while (node < size && (*routetab)[end][node] < size + 1 &&
 		!in_solutions(sol, node))
 	{
@@ -117,10 +118,8 @@ int			path_finder_1(int ***routetab, int size, t_array *sol, int end)
 		if (path_finder_1(routetab, size, sol, end))
 			return (1);
 		fta_popback(sol, 1);
-		t_node = node;
 		node = get_min_path(*routetab, size,
 				ARRAY_DATA(sol, sol->size - 1), end);
-		(*routetab)[end][t_node] = temp;
 	}
 	return (0);
 }
