@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   node_route_manager.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 09:03:55 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/17 04:55:49 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/17 08:19:37 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void
-	ft_distance(int **routes, int size)
+void		ft_distance(int **routes, int size)
 {
 	int i;
 	int j;
@@ -42,8 +41,7 @@ void
 	}
 }
 
-static int
-	ft_connections(int i, int j, t_lem_in *l)
+static int	ft_connections(int i, int j, t_lem_in *l)
 {
 	int k;
 
@@ -58,8 +56,7 @@ static int
 	return (l->nb_rooms + 1);
 }
 
-int
-	**ft_init_route(t_lem_in *l)
+int			**ft_init_route(t_lem_in *l)
 {
 	int i;
 	int j;
@@ -88,8 +85,7 @@ int
 	return (connections);
 }
 
-t_node
-	*ft_init_nodes(t_lem_in *l)
+t_node		*ft_init_nodes(t_lem_in *l)
 {
 	int		i;
 	t_node	*rooms;

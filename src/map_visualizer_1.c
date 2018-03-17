@@ -6,14 +6,13 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:14:31 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/16 17:00:25 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/17 08:20:54 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int
-	mv_get_prev_node(char **cmd, int i, int j, int start)
+int			mv_get_prev_node(char **cmd, int i, int j, int start)
 {
 	char	**icmds;
 	int		value;
@@ -31,8 +30,7 @@ int
 	}
 }
 
-static void
-	color_map(int ***routetab, int size, int node1, int node2)
+static void	color_map(int ***routetab, int size, int node1, int node2)
 {
 	int i;
 	int j;
@@ -54,8 +52,7 @@ static void
 	}
 }
 
-static void
-	reset_route(int **routetab, int size)
+static void	reset_route(int **routetab, int size)
 {
 	int			i;
 	int			j;
@@ -75,8 +72,8 @@ static void
 	}
 }
 
-void
-	run_print_map(int **routetab, int size, t_node *nodes, t_array a_cmds)
+void		run_print_map(int **routetab, int size,
+			t_node *nodes, t_array a_cmds)
 {
 	int			i;
 	int			j;
