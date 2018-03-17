@@ -6,7 +6,7 @@
 /*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 09:34:58 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/17 07:38:09 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/03/17 08:29:09 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@ static int	ft_init_struct(t_lem_in *l, char **map)
 		return (-1);
 	l->rooms[l->nb_rooms] = 0;
 	if ((l->links = (char**)malloc(sizeof(char*) * l->nb_links + 1)) == NULL)
-	{
-		ft_free_tab(l->rooms);
-		return (-1);
-	}
+		return (ft_free_tab(l->rooms, -1));
 	l->links[l->nb_links] = 0;
 	return (0);
 }
@@ -93,12 +90,11 @@ int			main(int ac, char **av)
 	if (ft_init_struct(&l, map) == -1)
 	{
 		ft_dprintf(2, "ERROR\n");
-		ft_free_tab(map);
-		return (-1);
+		return (ft_free_tab(map, -1));
 	}
 	if (ft_parsing(map, &l) == -1 || ft_pathfinding(map, &l) == -1)
 		ft_dprintf(2, "ERROR\n");
-	ft_free_tab(map);
-	ft_free_struct(&l);
+	ft_free_tab(map, 0);
+	ft_free_struct(&l, 0);
 	return (0);
 }

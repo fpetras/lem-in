@@ -6,7 +6,7 @@
 /*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 18:27:11 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/16 20:19:51 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/03/17 08:23:10 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	ft_open(int ac, char **av)
 	return (0);
 }
 
-int		ft_options(int ac, char **av)
+int			ft_options(int ac, char **av)
 {
 	if (ac == 2 && ft_strequ(av[1], "-v"))
 		g_option_v = 1;
@@ -35,10 +35,10 @@ int		ft_options(int ac, char **av)
 	}
 	else if (ac == 4 && (((ft_strequ(av[1], "-v") && ft_strequ(av[2], "-f"))) ||
 		(ft_strequ(av[1], "-f") && ft_strequ(av[2], "-v"))))
-        {
-                g_option_v = 1;
+	{
+		g_option_v = 1;
 		return (ft_open(ac, av));
-        }
+	}
 	else
 	{
 		ft_dprintf(2, "usage: %s [-v] < map\n", av[0]);

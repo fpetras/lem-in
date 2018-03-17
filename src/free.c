@@ -3,17 +3,58 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 14:44:18 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/17 07:28:30 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/17 08:43:32 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void
-	ft_free_struct(t_lem_in *l)
+int		ft_free_tab(char **tab, int status)
+{
+	int i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+	return (status);
+}
+
+int		ft_free_int_tab(int **tab, int size, int status)
+{
+	int i;
+
+	i = 0;
+	while (i < size)
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+	return (status);
+}
+
+int		ft_free_nodes(t_node *rooms, int size, int status)
+{
+	int i;
+
+	i = 0;
+	while (i < size)
+	{
+		free(rooms[i].name);
+		i++;
+	}
+	free(rooms);
+	return (status);
+}
+
+int		ft_free_struct(t_lem_in *l, int status)
 {
 	int i;
 
@@ -37,59 +78,10 @@ void
 	}
 	if (l->links)
 		free(l->links);
+	return (status);
 }
 
-void
-	ft_free_nodes(t_node *rooms, int size)
-{
-	int i;
-
-	i = 0;
-	while (i < size)
-	{
-		free(rooms[i].name);
-		i++;
-	}
-	free(rooms);
-}
-
-void
-	ft_free_int_tab_and_nodes(int **tab, t_node *rooms, int size)
-{
-	int i;
-
-	i = 0;
-	while (i < size)
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-	i = 0;
-	while (i < size)
-	{
-		free(rooms[i].name);
-		i++;
-	}
-	free(rooms);
-}
-
-void
-	ft_free_tab(char **tab)
-{
-	int i;
-
-	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-}
-
-void
-	free_sols_cmds(t_array **sols, t_array cmds, int nb_sols)
+void	free_sols_cmds(t_array **sols, t_array cmds, int nb_sols)
 {
 	int i;
 

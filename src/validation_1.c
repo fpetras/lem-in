@@ -6,7 +6,7 @@
 /*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 10:14:10 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/16 08:44:54 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/03/17 08:30:57 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		ft_check_coordinates(t_lem_in *l)
 				ret = -1;
 			j++;
 		}
-		ft_free_tab(split);
+		ft_free_tab(split, 0);
 		i++;
 		if (ret == -1)
 			break ;

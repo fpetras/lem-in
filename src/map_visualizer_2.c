@@ -6,14 +6,13 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 21:14:17 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/16 17:14:26 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/17 08:21:30 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static int
-	scale_map_row(t_node *nodes, int size, int row)
+static int	scale_map_row(t_node *nodes, int size, int row)
 {
 	int		i;
 	int		max_h;
@@ -38,8 +37,7 @@ static int
 	return ((int)sc_row);
 }
 
-static int
-	scale_map_col(t_node *nodes, int size, int col)
+static int	scale_map_col(t_node *nodes, int size, int col)
 {
 	int		i;
 	int		max_w;
@@ -64,8 +62,7 @@ static int
 	return ((int)sc_col);
 }
 
-t_node
-	*scale_map(t_node *nodes, int size)
+t_node		*scale_map(t_node *nodes, int size)
 {
 	t_node	*d_nodes;
 	int		i;
@@ -83,8 +80,7 @@ t_node
 	return (nodes);
 }
 
-void
-	print_line(t_node l1, t_node l2, int color)
+void		print_line(t_node l1, t_node l2, int color)
 {
 	t_node	a;
 	t_node	b;
@@ -110,8 +106,7 @@ void
 	}
 }
 
-void
-	print_map(t_node *nodes, int **routetab, int size)
+void		print_map(t_node *nodes, int **routetab, int size)
 {
 	int i;
 	int j;
