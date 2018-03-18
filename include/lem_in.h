@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 09:32:55 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/17 08:41:48 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/03/18 08:40:55 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int					path_finder_1(int ***routetab, int size,
 					t_array *sol, int end);
 
 int					**ft_init_tab(int size);
-void				pf_print_tab(int **tab, int row, int col);
+void				li_print_tab(int **tab, int size);
 
 void				run_print_map(int **routetab, int size,
 					t_node *nodes, t_array a_cmds);

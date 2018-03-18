@@ -10,14 +10,12 @@ room5 9 3
 room6 1 5
 room7 4 8
 room0-room4
-room0-room6
 room1-room3
-room5-room0
 room3-room5
 #another comment
 room4-room2
 room2-room1
 room7-room6
 room7-room2
-room7-room4
+room7-room0
 room6-room5

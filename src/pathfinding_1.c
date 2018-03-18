@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/17 08:31:51 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/03/18 08:56:47 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,6 @@ int				run_path_finder(int **routetab, t_array ***sols,
 	{
 		*sols = append_solutions((*sols), nb_sols, sol);
 		nb_sols++;
-		if (sol.size == 2)
-			break ;
 		fta_clear(&sol);
 		sol = NEW_ARRAY(int);
 		fta_append(&sol, &start, 1);
