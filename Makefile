@@ -6,7 +6,7 @@
 #    By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/01 20:07:00 by rnugroho          #+#    #+#              #
-#    Updated: 2018/03/18 10:28:33 by fpetras          ###   ########.fr        #
+#    Updated: 2018/03/18 15:43:37 by rnugroho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -114,7 +114,7 @@ test_algo: $(NAME)
 	./lem-in -vf resources/7.3.map
 	./lem-in -vf resources/7.4.map
 	./lem-in -vf resources/7.5.map
-	./lem-in -vf resources/20.map
+	./lem-in < resources/20.map
 
 norm:
 	@echo $(RED)

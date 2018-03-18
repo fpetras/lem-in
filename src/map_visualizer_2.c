@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 21:14:17 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/18 10:13:50 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/03/18 15:43:24 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ void			print_map(t_node *nodes, int **routetab, t_lem_in *l)
 {
 	int i;
 	int j;
+	int	mark;
 
 	nodes = scale_map(nodes, l->nb_rooms);
 	i = -1;
@@ -123,9 +124,10 @@ void			print_map(t_node *nodes, int **routetab, t_lem_in *l)
 	i = 0;
 	while (i < l->nb_rooms)
 	{
-		ft_printf("%*.*v%*W%s%w", nodes[i].row, nodes[i].col,
-		(ft_strcmp(nodes[i].name, l->start) == 0 ||
-		ft_strcmp(nodes[i].name, l->end) == 0) ? RED : GREEN, nodes[i].name);
+		mark = ft_strcmp(nodes[i].name, l->start) == 0 ||
+		 ft_strcmp(nodes[i].name, l->end) == 0;
+		ft_printf("%*.*v%*W%*Q%s%*Q%w", nodes[i].row, nodes[i].col,
+		mark ? RED : GREEN, mark, '[', nodes[i].name, mark, ']');
 		i++;
 	}
 	ft_printf("%*.*v", H + 1, 0);
