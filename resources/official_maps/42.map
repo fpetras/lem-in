@@ -1,8 +1,7 @@
 1
 ##start
 42_Commandements 2150 3000
-Filler 1 1
-Filit 12 12
+Filit 2800 3000
 ft_printf 3200 3000
 Get_Next_line 3000 3000
 libft 2550 3000
