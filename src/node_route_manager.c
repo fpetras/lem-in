@@ -6,13 +6,13 @@
 /*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 09:03:55 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/17 08:19:37 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/03/18 07:57:25 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void		ft_distance(int **routes, int size)
+static void	ft_distance(int **routes, int size)
 {
 	int i;
 	int j;
