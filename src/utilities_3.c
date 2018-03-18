@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities_3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 11:01:00 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/17 08:41:40 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/03/18 09:43:42 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_print_tab(char **tab)
 	}
 }
 
-int		li_get_nodes_index(t_node *rooms, t_lem_in *l, char *name)
+int		get_nodes_index(t_node *rooms, t_lem_in *l, char *name)
 {
 	int i;
 
@@ -48,7 +48,7 @@ int		li_get_nodes_index(t_node *rooms, t_lem_in *l, char *name)
 	return (rooms[i].index);
 }
 
-char	*li_get_nodes_name(t_node *rooms, t_lem_in *l, int index)
+char	*get_nodes_name(t_node *rooms, t_lem_in *l, int index)
 {
 	int i;
 

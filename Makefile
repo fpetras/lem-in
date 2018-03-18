@@ -6,7 +6,7 @@
 #    By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/01 20:07:00 by rnugroho          #+#    #+#              #
-#    Updated: 2018/03/18 08:01:26 by rnugroho         ###   ########.fr        #
+#    Updated: 2018/03/18 09:49:22 by rnugroho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -103,6 +103,18 @@ test_leaks: $(NAME)
 	valgrind ./lem-in < resources/no-end.map 2>&1 | grep lost
 	valgrind ./lem-in < resources/no-solutions.map 2>&1 | grep lost
 	valgrind ./lem-in < resources/comments.map 2>&1 | grep lost
+
+test_algo: $(NAME)
+	./lem-in -vf resources/1.map
+	./lem-in -vf resources/4.map
+	./lem-in -vf resources/7.map
+	./lem-in -vf resources/10.map
+	./lem-in -vf resources/7.1.map
+	./lem-in -vf resources/7.2.map
+	./lem-in -vf resources/7.3.map
+	./lem-in -vf resources/7.4.map
+	./lem-in -vf resources/7.5.map
+	./lem-in -vf resources/20.map
 
 norm:
 	@echo $(RED)

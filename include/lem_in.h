@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 09:32:55 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/18 09:11:47 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/18 09:43:35 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ void				run_print_map(int **routetab, int size,
 void				print_map(t_node *nodes, int **routetab, int size);
 
 int					mv_get_prev_node(char **cmd, int i, int j, int start);
-int					li_get_nodes_index(t_node *rooms, t_lem_in *l, char *name);
-char				*li_get_nodes_name(t_node *rooms, t_lem_in *l, int index);
+int					get_nodes_index(t_node *rooms, t_lem_in *l, char *name);
+char				*get_nodes_name(t_node *rooms, t_lem_in *l, int index);
 void				fta_append_space(t_array *self, char *data);
 
 size_t				ft_tablen(char **tab);

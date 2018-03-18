@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/18 08:56:47 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/18 09:47:54 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,23 +62,50 @@ void			solutions_to_cmds(t_array **sols, t_array *cmds,
 	}
 }
 
-int				run_path_finder(int **routetab, t_array ***sols,
-				t_node *rooms, t_lem_in *l)
+int				turns_counter(t_array **sols, int nb_ants, int n)
+{
+	int		col;
+	int		row;
+	int		offset;
+	int		c;
+
+	if (n == 0 )
+		return (0);
+	row = 0;
+	c = 0;
+	while (row >= 0)
+	{
+		col = -1;
+		offset = 1;
+		while (++col < nb_ants)
+			offset = (col % n == 0) ? offset - 1 : offset;
+		c++;
+		row = (offset + row == (int)LAST((col - 1) % n)) ? -1 : row + 1;
+	}
+	return (c);
+}
+
+int				run_path_finder(int **routetab, t_array ***sols, t_node *rooms, t_lem_in *l)
 {
 	t_array		sol;
 	int			nb_sols;
 	int			start;
 	int			end;
+	int			turns;
 
-	start = li_get_nodes_index(rooms, l, l->start);
-	end = li_get_nodes_index(rooms, l, l->end);
+	start = get_nodes_index(rooms, l, l->start);
+	end = get_nodes_index(rooms, l, l->end);
 	nb_sols = 0;
 	sol = NEW_ARRAY(int);
 	fta_append(&sol, &start, 1);
+	turns = 0;
 	while (path_finder_1(&routetab, l->nb_rooms, &sol, end))
 	{
-		*sols = append_solutions((*sols), nb_sols, sol);
-		nb_sols++;
+		*sols = append_solutions((*sols), nb_sols++, sol);
+		if (turns_counter((*sols), l->nb_ants, nb_sols) > turns &&
+			turns != 0 && nb_sols-- > 0)
+			break ;
+		turns = turns_counter((*sols), l->nb_ants, nb_sols);
 		fta_clear(&sol);
 		sol = NEW_ARRAY(int);
 		fta_append(&sol, &start, 1);
@@ -104,11 +131,11 @@ static void		li_print_solutions(t_array a_cmds, t_node *rooms, t_lem_in *l)
 		c = (i > 0) ? ft_printf("\n") : 0;
 		while (++j < ft_wordcounter(cmds[i], ' '))
 			if (mv_get_prev_node(cmds, i, j, 1) != ft_atoi(icmds[j]) &&
-				li_get_nodes_index(rooms, l, l->start) != ft_atoi(icmds[j]))
+				get_nodes_index(rooms, l, l->start) != ft_atoi(icmds[j]))
 			{
 				(c++ != 1) ? ft_printf(" ") : 0;
 				ft_printf("L%d-%s", j + 1,
-					li_get_nodes_name(rooms, l, ft_atoi(icmds[j])));
+					get_nodes_name(rooms, l, ft_atoi(icmds[j])));
 			}
 		ft_strtab_free(icmds);
 	}
