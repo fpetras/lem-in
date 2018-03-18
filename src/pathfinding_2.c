@@ -6,54 +6,24 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/17 08:27:17 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/03/18 08:29:53 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int			**ft_init_tab(int size)
-{
-	int **tab;
-	int i;
-	int j;
-
-	i = -1;
-	tab = (int **)malloc(sizeof(*tab) * size);
-	while (++i < size)
-	{
-		j = -1;
-		tab[i] = (int *)malloc(sizeof(**tab) * size);
-		while (++j < size)
-			tab[i][j] = 0;
-	}
-	return (tab);
-}
-
-void		pf_print_tab(int **tab, int row, int col)
+static int	in_solutions(t_array *sol, int node)
 {
 	int i;
-	int j;
 
 	i = 0;
-	ft_printf("   ");
-	while (i < col)
+	while (i < (int)sol->size)
 	{
-		ft_printf("%*w%2d%w ", RED, i);
+		if (ARRAY_DATA(sol, i) == node)
+			return (1);
 		i++;
 	}
-	i = 0;
-	ft_printf("\n");
-	while (i < row)
-	{
-		j = -1;
-		ft_printf("%*w%2d%w ", RED, i);
-		while (++j < col)
-			ft_printf("%*w%2d%w ", (tab[i][j] == 1 ? GREEN : EOF),
-				tab[i][j]);
-		ft_printf("\n");
-		i++;
-	}
+	return (0);
 }
 
 static int	get_min_path(int **routetab, int size, int row, int end)
@@ -76,20 +46,6 @@ static int	get_min_path(int **routetab, int size, int row, int end)
 		col++;
 	}
 	return (node);
-}
-
-static int	in_solutions(t_array *sol, int node)
-{
-	int i;
-
-	i = 0;
-	while (i < (int)sol->size)
-	{
-		if (ARRAY_DATA(sol, i) == node)
-			return (1);
-		i++;
-	}
-	return (0);
 }
 
 /*

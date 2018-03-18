@@ -6,7 +6,7 @@
 /*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 09:32:55 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/18 07:59:08 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/03/18 08:30:05 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,8 @@ void				solutions_to_cmds(t_array **sols, t_array *cmds,
 int					path_finder_1(int ***routetab, int size,
 					t_array *sol, int end);
 
-int					**ft_init_tab(int size);
-void				pf_print_tab(int **tab, int row, int col);
-
 void				run_print_map(int **routetab, int size,
 					t_node *nodes, t_array a_cmds);
-
-t_node				*scale_map(t_node *nodes, int size);
-void				print_line(t_node l1, t_node l2, int color);
 void				print_map(t_node *nodes, int **routetab, int size);
 
 int					mv_get_prev_node(char **cmd, int i, int j, int start);
