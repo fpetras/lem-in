@@ -6,7 +6,7 @@
 /*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 09:32:55 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/17 08:41:48 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/03/18 07:59:08 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ int					ft_pathfinding(char **map, t_lem_in *l);
 
 t_node				*ft_init_nodes(t_lem_in *l);
 int					**ft_init_route(t_lem_in *l);
-void				ft_distance(int **routes, int size);
 
 void				ft_remove_coordinates(t_lem_in *l);
 void				ft_add_coordinates(char *room);
