@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/18 10:40:24 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/03/18 17:37:10 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int			pathfinder(int ***routetab, int size, t_array *sol, int end)
 			return (1);
 		fta_popback(sol, 1);
 		node = get_min_path(*routetab, size,
-				ARRAY_DATA(sol, sol->size - 1), end);
+			ARRAY_DATA(sol, sol->size - 1), end);
 	}
 	return (0);
 }

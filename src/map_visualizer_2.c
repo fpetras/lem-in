@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 21:14:17 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/18 15:43:24 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/18 17:46:30 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,10 +124,10 @@ void			print_map(t_node *nodes, int **routetab, t_lem_in *l)
 	i = 0;
 	while (i < l->nb_rooms)
 	{
-		mark = ft_strcmp(nodes[i].name, l->start) == 0 ||
-		 ft_strcmp(nodes[i].name, l->end) == 0;
+		mark = (ft_strequ(nodes[i].name, l->start) ||
+			ft_strequ(nodes[i].name, l->end));
 		ft_printf("%*.*v%*W%*Q%s%*Q%w", nodes[i].row, nodes[i].col,
-		mark ? RED : GREEN, mark, '[', nodes[i].name, mark, ']');
+			mark ? RED : GREEN, mark, '[', nodes[i].name, mark, ']');
 		i++;
 	}
 	ft_printf("%*.*v", H + 1, 0);

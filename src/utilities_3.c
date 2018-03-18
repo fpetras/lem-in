@@ -6,7 +6,7 @@
 /*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 11:01:00 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/18 10:44:56 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/03/18 17:44:44 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		get_nodes_index(t_node *rooms, t_lem_in *l, char *name)
 	i = 0;
 	while (i < l->nb_rooms)
 	{
-		if (ft_strcmp(rooms[i].name, name) == 0)
+		if (ft_strequ(rooms[i].name, name))
 			break ;
 		i++;
 	}
