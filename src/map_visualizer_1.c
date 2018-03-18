@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:14:31 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/18 16:02:53 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/18 16:32:09 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,6 @@ void		run_print_map(int **routetab, t_lem_in *l,
 		system("sleep 0.4");
 		i++;
 	}
+	ft_printfln("Total turns: %d", i - 1);
 	ft_strtab_free(cmds);
 }
