@@ -6,7 +6,7 @@
 #    By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/01 20:07:00 by rnugroho          #+#    #+#              #
-#    Updated: 2018/03/16 12:27:55 by fpetras          ###   ########.fr        #
+#    Updated: 2018/03/18 08:01:26 by rnugroho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,8 +89,20 @@ debug: $(NAME)
 	@$(COMPILER) -g $(IFLAGS) $(SRC) $(LFLAGS) -o $(NAME)
 
 test: $(NAME)
-	@$(COMPILER) -g $(IFLAGS) $(SRC) $(LFLAGS) -o $(NAME)
-	@./lem-in < resources/7.map
+	./lem-in < resources/no-room.map
+	./lem-in < resources/no-ants.map
+	./lem-in < resources/no-start.map
+	./lem-in < resources/no-end.map
+	./lem-in < resources/no-solutions.map
+	./lem-in < resources/comments.map
+
+test_leaks: $(NAME)
+	valgrind ./lem-in < resources/no-room.map 2>&1 | grep lost
+	valgrind ./lem-in < resources/no-ants.map 2>&1 | grep lost
+	valgrind ./lem-in < resources/no-start.map 2>&1 | grep lost
+	valgrind ./lem-in < resources/no-end.map 2>&1 | grep lost
+	valgrind ./lem-in < resources/no-solutions.map 2>&1 | grep lost
+	valgrind ./lem-in < resources/comments.map 2>&1 | grep lost
 
 norm:
 	@echo $(RED)
