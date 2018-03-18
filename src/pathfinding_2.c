@@ -6,55 +6,11 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/18 09:06:45 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/18 09:11:59 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-int			**ft_init_tab(int size)
-{
-	int **tab;
-	int i;
-	int j;
-
-	i = -1;
-	tab = (int **)malloc(sizeof(*tab) * size);
-	while (++i < size)
-	{
-		j = -1;
-		tab[i] = (int *)malloc(sizeof(**tab) * size);
-		while (++j < size)
-			tab[i][j] = 0;
-	}
-	return (tab);
-}
-
-void		li_print_tab(int **tab, int size)
-{
-	int i;
-	int j;
-
-	i = 0;
-	ft_printf("   ");
-	while (i < size)
-	{
-		ft_printf("%*w%2d%w ", RED, i);
-		i++;
-	}
-	i = 0;
-	ft_printf("\n");
-	while (i < size)
-	{
-		j = -1;
-		ft_printf("%*w%2d%w ", RED, i);
-		while (++j < size)
-			ft_printf("%*w%2d%w ", (tab[i][j] == 1 ? GREEN : EOF),
-				tab[i][j]);
-		ft_printf("\n");
-		i++;
-	}
-}
 
 static int	in_solutions(t_array *sol, int node)
 {

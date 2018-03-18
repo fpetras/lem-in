@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 09:32:55 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/18 09:03:57 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/18 09:11:47 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,6 @@ void				solutions_to_cmds(t_array **sols, t_array *cmds,
 
 int					path_finder_1(int ***routetab, int size,
 					t_array *sol, int end);
-
-int					**ft_init_tab(int size);
-void				li_print_tab(int **tab, int size);
 
 void				run_print_map(int **routetab, int size,
 					t_node *nodes, t_array a_cmds);
