@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:14:31 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/17 08:20:54 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/03/18 09:53:30 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void	reset_route(int **routetab, int size)
 	}
 }
 
-void		run_print_map(int **routetab, int size,
+void		run_print_map(int **routetab, t_lem_in *l,
 			t_node *nodes, t_array a_cmds)
 {
 	int			i;
@@ -81,7 +81,7 @@ void		run_print_map(int **routetab, int size,
 	char		**icmds;
 
 	i = 0;
-	reset_route(routetab, size);
+	reset_route(routetab, l->nb_rooms);
 	cmds = ft_strsplit(((char*)a_cmds.data), '\n');
 	while (cmds[i])
 	{
@@ -89,13 +89,13 @@ void		run_print_map(int **routetab, int size,
 		j = 0;
 		while (j < ft_wordcounter(cmds[i], ' '))
 		{
-			color_map(&routetab, size,
+			color_map(&routetab, l->nb_rooms,
 				mv_get_prev_node(cmds, i, j, 1), ft_atoi(icmds[j]));
 			j++;
 		}
 		ft_strtab_free(icmds);
 		ft_printf("\033[H\033[J");
-		print_map(nodes, routetab, size);
+		print_map(nodes, routetab, l);
 		system("sleep 0.4");
 		i++;
 	}

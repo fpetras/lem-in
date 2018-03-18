@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 21:14:17 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/18 08:22:11 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/03/18 09:56:21 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,25 +106,27 @@ static void		print_line(t_node l1, t_node l2, int color)
 	}
 }
 
-void			print_map(t_node *nodes, int **routetab, int size)
+void			print_map(t_node *nodes, int **routetab, t_lem_in *l)
 {
 	int i;
 	int j;
 
-	nodes = scale_map(nodes, size);
+	nodes = scale_map(nodes, l->nb_rooms);
 	i = -1;
-	while (++i < size)
+	while (++i < l->nb_rooms)
 	{
 		j = -1;
-		while (++j < size)
+		while (++j < l->nb_rooms)
 			if (routetab[i][j] >= 1)
 				print_line(nodes[i], nodes[j], routetab[i][j] - 1);
 	}
 	i = 0;
-	while (i < size)
+	while (i < l->nb_rooms)
 	{
 		ft_printf("%*.*v%*W%s%w", nodes[i].row, nodes[i].col,
-		GREEN, nodes[i].name);
+		(ft_strcmp(nodes[i].name, l->start) == 0 ||
+		 ft_strcmp(nodes[i].name, l->end) == 0) ? RED : GREEN,
+		nodes[i].name);
 		i++;
 	}
 	ft_printf("%*.*v", H + 1, 0);
