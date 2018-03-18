@@ -6,7 +6,7 @@
 /*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 09:32:55 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/18 10:27:53 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/03/18 10:50:46 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void				ft_add_coordinates(char *room);
 int					ft_1st_coord_index(char *room);
 int					ft_2nd_coord_index(char *room);
 
-int					path_finder_2(int ***routetab, int size,
+int					pathfinder(int ***routetab, int size,
 					t_array *sol, int end);
 
 void				run_print_map(int **routetab, t_lem_in *l,
@@ -92,6 +92,7 @@ void				fta_append_space(t_array *self, char *data);
 
 size_t				ft_tablen(char **tab);
 void				ft_print_tab(char **tab);
+void				ft_print_solutions(t_array com, t_node *rooms, t_lem_in *l);
 int					ft_free_tab(char **tab, int status);
 int					ft_free_int_tab(int **tab, int size, int status);
 int					ft_free_nodes(t_node *rooms, int size, int status);

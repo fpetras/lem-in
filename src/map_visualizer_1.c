@@ -6,29 +6,11 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:14:31 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/18 09:53:30 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/18 10:55:04 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-int			mv_get_prev_node(char **cmd, int i, int j, int start)
-{
-	char	**icmds;
-	int		value;
-
-	if (i == 0)
-		return (start);
-	else
-	{
-		icmds = ft_strsplit(cmd[i - 1], ' ');
-		if (j >= ft_wordcounter(cmd[i - 1], ' '))
-			j = 0;
-		value = ft_atoi(icmds[j]);
-		ft_strtab_free(icmds);
-		return (value);
-	}
-}
 
 static void	color_map(int ***routetab, int size, int node1, int node2)
 {
@@ -90,7 +72,7 @@ void		run_print_map(int **routetab, t_lem_in *l,
 		while (j < ft_wordcounter(cmds[i], ' '))
 		{
 			color_map(&routetab, l->nb_rooms,
-				mv_get_prev_node(cmds, i, j, 1), ft_atoi(icmds[j]));
+			get_prev_node(cmds, i, j, 1), ft_atoi(icmds[j]));
 			j++;
 		}
 		ft_strtab_free(icmds);

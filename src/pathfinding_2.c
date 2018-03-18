@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/18 10:24:09 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/03/18 10:40:24 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	get_min_path(int **routetab, int size, int row, int end)
 ** Does not tolerate any intersections
 */
 
-int			path_finder_2(int ***routetab, int size, t_array *sol, int end)
+int			pathfinder(int ***routetab, int size, t_array *sol, int end)
 {
 	int node;
 
@@ -70,7 +70,7 @@ int			path_finder_2(int ***routetab, int size, t_array *sol, int end)
 		(*routetab)[ARRAY_DATA(sol, sol->size - 1)][end] = size + 1;
 		fta_append(sol, &node, 1);
 		(*routetab)[end][node] = size + 1;
-		if (path_finder_2(routetab, size, sol, end))
+		if (pathfinder(routetab, size, sol, end))
 			return (1);
 		fta_popback(sol, 1);
 		node = get_min_path(*routetab, size,

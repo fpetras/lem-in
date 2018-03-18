@@ -6,13 +6,13 @@
 /*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 11:01:00 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/18 10:27:40 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/03/18 10:44:56 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int			get_prev_node(char **cmd, int i, int j, int start)
+int		get_prev_node(char **cmd, int i, int j, int start)
 {
 	char	**icmds;
 	int		value;
