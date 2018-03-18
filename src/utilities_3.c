@@ -3,34 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   utilities_3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/12 11:01:00 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/18 09:43:42 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/18 10:27:40 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-size_t	ft_tablen(char **tab)
+int			get_prev_node(char **cmd, int i, int j, int start)
 {
-	size_t len;
+	char	**icmds;
+	int		value;
 
-	len = 0;
-	while (tab[len])
-		len++;
-	return (len);
-}
-
-void	ft_print_tab(char **tab)
-{
-	int i;
-
-	i = 0;
-	while (tab[i])
+	if (i == 0)
+		return (start);
+	else
 	{
-		ft_printf("%s\n", tab[i]);
-		i++;
+		icmds = ft_strsplit(cmd[i - 1], ' ');
+		if (j >= ft_wordcounter(cmd[i - 1], ' '))
+			j = 0;
+		value = ft_atoi(icmds[j]);
+		ft_strtab_free(icmds);
+		return (value);
 	}
 }
 

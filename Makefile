@@ -6,7 +6,7 @@
 #    By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/01 20:07:00 by rnugroho          #+#    #+#              #
-#    Updated: 2018/03/18 09:49:22 by rnugroho         ###   ########.fr        #
+#    Updated: 2018/03/18 10:28:33 by fpetras          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ FILES:= main \
 		pathfinding_1 pathfinding_2 \
 		node_route_manager \
 		map_visualizer_1 map_visualizer_2 \
-		utilities_1 utilities_2 utilities_3 \
+		utilities_1 utilities_2 utilities_3 utilities_4 \
 		free
 
 # ----- Libft ------

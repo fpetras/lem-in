@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 09:32:55 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/18 09:53:42 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/18 10:27:53 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # define END	2
 # define ROOM	1
 # define LINK	2
-# define W 100
-# define H 25
+# define W		100
+# define H		25
 # define ARRAY_DATA(D, I) ((int*)(D)->data)[I]
 
 int					g_option_v;
@@ -78,17 +78,14 @@ void				ft_add_coordinates(char *room);
 int					ft_1st_coord_index(char *room);
 int					ft_2nd_coord_index(char *room);
 
-void				solutions_to_cmds(t_array **sols, t_array *cmds,
-					int nb_ants, int nb_sols);
-
-int					path_finder_1(int ***routetab, int size,
+int					path_finder_2(int ***routetab, int size,
 					t_array *sol, int end);
 
 void				run_print_map(int **routetab, t_lem_in *l,
 					t_node *nodes, t_array a_cmds);
 void				print_map(t_node *nodes, int **routetab, t_lem_in *l);
 
-int					mv_get_prev_node(char **cmd, int i, int j, int start);
+int					get_prev_node(char **cmd, int i, int j, int start);
 int					get_nodes_index(t_node *rooms, t_lem_in *l, char *name);
 char				*get_nodes_name(t_node *rooms, t_lem_in *l, int index);
 void				fta_append_space(t_array *self, char *data);

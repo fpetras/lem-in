@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/15 21:14:17 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/18 09:56:21 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/18 10:13:50 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,7 @@ void			print_map(t_node *nodes, int **routetab, t_lem_in *l)
 	{
 		ft_printf("%*.*v%*W%s%w", nodes[i].row, nodes[i].col,
 		(ft_strcmp(nodes[i].name, l->start) == 0 ||
-		 ft_strcmp(nodes[i].name, l->end) == 0) ? RED : GREEN,
-		nodes[i].name);
+		ft_strcmp(nodes[i].name, l->end) == 0) ? RED : GREEN, nodes[i].name);
 		i++;
 	}
 	ft_printf("%*.*v", H + 1, 0);

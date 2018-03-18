@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/18 09:52:54 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/18 10:28:15 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static t_array	**append_solutions(t_array **sols, int nb_sols, t_array sol)
 
 #define LAST(A) sols[A]->size - 1
 
-void			solutions_to_cmds(t_array **sols, t_array *cmds,
+static void		solutions_to_cmds(t_array **sols, t_array *cmds,
 				int nb_ants, int n)
 {
 	int		col;
@@ -62,7 +62,7 @@ void			solutions_to_cmds(t_array **sols, t_array *cmds,
 	}
 }
 
-int				turns_counter(t_array **sols, int nb_ants, int n)
+static int		turns_counter(t_array **sols, int nb_ants, int n)
 {
 	int		col;
 	int		row;
@@ -85,7 +85,8 @@ int				turns_counter(t_array **sols, int nb_ants, int n)
 	return (c);
 }
 
-int				run_path_finder(int **routetab, t_array ***sols, t_node *rooms, t_lem_in *l)
+static int		run_path_finder(int **routetab, t_array ***sols,
+				t_node *rooms, t_lem_in *l)
 {
 	t_array		sol;
 	int			nb_sols;
@@ -99,7 +100,7 @@ int				run_path_finder(int **routetab, t_array ***sols, t_node *rooms, t_lem_in 
 	sol = NEW_ARRAY(int);
 	fta_append(&sol, &start, 1);
 	turns = 0;
-	while (path_finder_1(&routetab, l->nb_rooms, &sol, end))
+	while (path_finder_2(&routetab, l->nb_rooms, &sol, end))
 	{
 		*sols = append_solutions((*sols), nb_sols++, sol);
 		if (turns_counter((*sols), l->nb_ants, nb_sols) > turns &&
@@ -130,7 +131,7 @@ static void		li_print_solutions(t_array a_cmds, t_node *rooms, t_lem_in *l)
 		j = -1;
 		c = (i > 0) ? ft_printf("\n") : 0;
 		while (++j < ft_wordcounter(cmds[i], ' '))
-			if (mv_get_prev_node(cmds, i, j, 1) != ft_atoi(icmds[j]) &&
+			if (get_prev_node(cmds, i, j, 1) != ft_atoi(icmds[j]) &&
 				get_nodes_index(rooms, l, l->start) != ft_atoi(icmds[j]))
 			{
 				(c++ != 1) ? ft_printf(" ") : 0;
