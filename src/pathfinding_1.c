@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/19 16:16:39 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/19 16:34:45 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,21 +82,20 @@ static void		solutions_to_cmds(t_array **sols, t_array *cmds,
 	}
 }
 
-static int		run_pathfinder(int **routetab, t_array ***sols,
-				t_node *rooms, t_lem_in *l)
+static int		run_pathfinder(int **route, t_array ***sols,
+				t_node *r, t_lem_in *l)
 {
 	t_array		sol;
 	int			nb_sols;
 	int			start;
 	int			turns;
 
-	start = get_nodes_index(rooms, l, l->start);
-	nb_sols = 0;
 	sol = NEW_ARRAY(int);
-	fta_append(&sol, &start, 1);
+	nb_sols = 0;
+	start = get_nodes_index(r, l, l->start);
 	turns = 0;
-	while (pathfinder(&routetab, l->nb_rooms, &sol,
-			get_nodes_index(rooms, l, l->end)))
+	fta_append(&sol, &start, 1);
+	while (pathfinder(&route, l->nb_rooms, &sol, get_nodes_index(r, l, l->end)))
 	{
 		*sols = append_solutions((*sols), nb_sols++, sol);
 		if (turns_counter((*sols), l->nb_ants, nb_sols) > turns && turns != 0)
