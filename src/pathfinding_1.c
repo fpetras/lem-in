@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/19 16:34:45 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/03/19 18:43:47 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,24 +32,33 @@ static t_array	**append_solutions(t_array **sols, int nb_sols, t_array sol)
 
 #define LAST(A) sols[A]->size - 1
 
-static int		turns_counter(t_array **sols, int nb_ants, int n)
+int				turns_counter(t_array **sols, int nb_ants, int n)
 {
-	int		i;
-	int		max;
-	int		subtractor;
+	int		col;
+	int		row;
+	int		off;
+	int		c;
+	int		end;
 
 	if (n == 0)
 		return (0);
-	i = 0;
-	max = 0;
-	while (i < n)
+	row = 0;
+	c = -1;
+	while (row != -1)
 	{
-		if (max < (int)sols[i]->size)
-			max = sols[i]->size;
-		i++;
+		col = -1;
+		off = 1;
+		end = 1;
+		while (++col < nb_ants)
+		{
+			off = (col % n == 0) ? off - 1 : off;
+			if ((off + row) >= 0 && ((off + row) <= (int)LAST(col % n)) && end)
+				end = 0;
+		}
+		c++;
+		row = end ? -1 : row + 1;
 	}
-	subtractor = (nb_ants % n) == 0 ? 0 : 0;
-	return (nb_ants / n + max - subtractor);
+	return (c);
 }
 
 static void		solutions_to_cmds(t_array **sols, t_array *cmds,
