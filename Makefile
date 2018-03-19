@@ -6,7 +6,7 @@
 #    By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/01 20:07:00 by rnugroho          #+#    #+#              #
-#    Updated: 2018/03/19 16:22:19 by rnugroho         ###   ########.fr        #
+#    Updated: 2018/03/19 17:44:35 by fpetras          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ HDRPATH:=include/
 CCHPATH:=obj/
 IFLAGS:=-I $(HDRPATH) -I $(LFTDIR)/include
 LFLAGS:=-L $(LFTDIR) -lft
-CFLAGS:=-Wall -Wextra $(IFLAGS)
+CFLAGS:=-Wall -Werror -Wextra $(IFLAGS)
 # ==================
 
 # ----- Colors -----
