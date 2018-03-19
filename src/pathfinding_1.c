@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/19 13:46:42 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/19 16:16:39 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static int		turns_counter(t_array **sols, int nb_ants, int n)
 {
 	int		i;
 	int		max;
+	int		subtractor;
 
 	if (n == 0)
 		return (0);
@@ -47,7 +48,8 @@ static int		turns_counter(t_array **sols, int nb_ants, int n)
 			max = sols[i]->size;
 		i++;
 	}
-	return (nb_ants / n + max);
+	subtractor = (nb_ants % n) == 0 ? 0 : 0;
+	return (nb_ants / n + max - subtractor);
 }
 
 static void		solutions_to_cmds(t_array **sols, t_array *cmds,
@@ -86,21 +88,22 @@ static int		run_pathfinder(int **routetab, t_array ***sols,
 	t_array		sol;
 	int			nb_sols;
 	int			start;
-	int			end;
 	int			turns;
 
 	start = get_nodes_index(rooms, l, l->start);
-	end = get_nodes_index(rooms, l, l->end);
 	nb_sols = 0;
 	sol = NEW_ARRAY(int);
 	fta_append(&sol, &start, 1);
 	turns = 0;
-	while (pathfinder(&routetab, l->nb_rooms, &sol, end))
+	while (pathfinder(&routetab, l->nb_rooms, &sol,
+			get_nodes_index(rooms, l, l->end)))
 	{
 		*sols = append_solutions((*sols), nb_sols++, sol);
-		if (turns_counter((*sols), l->nb_ants, nb_sols) > turns &&
-			turns != 0 && nb_sols-- > 0)
-			break ;
+		if (turns_counter((*sols), l->nb_ants, nb_sols) > turns && turns != 0)
+		{
+			fta_clear((*sols)[--nb_sols]);
+			free((*sols)[nb_sols]);
+		}
 		turns = turns_counter((*sols), l->nb_ants, nb_sols);
 		fta_clear(&sol);
 		sol = NEW_ARRAY(int);
