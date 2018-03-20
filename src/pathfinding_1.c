@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/19 18:43:47 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/20 09:17:06 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ static t_array	**append_solutions(t_array **sols, int nb_sols, t_array sol)
 
 #define LAST(A) sols[A]->size - 1
 
-int				turns_counter(t_array **sols, int nb_ants, int n)
+static int		turns_counter(t_array **sols, int nb_ants, int n)
 {
 	int		col;
 	int		row;
-	int		off;
 	int		c;
+	int		off;
 	int		end;
 
 	if (n == 0)
@@ -55,8 +55,8 @@ int				turns_counter(t_array **sols, int nb_ants, int n)
 			if ((off + row) >= 0 && ((off + row) <= (int)LAST(col % n)) && end)
 				end = 0;
 		}
-		c++;
 		row = end ? -1 : row + 1;
+		c++;
 	}
 	return (c);
 }
@@ -96,13 +96,13 @@ static int		run_pathfinder(int **route, t_array ***sols,
 {
 	t_array		sol;
 	int			nb_sols;
-	int			start;
 	int			turns;
+	int			start;
 
 	sol = NEW_ARRAY(int);
 	nb_sols = 0;
-	start = get_nodes_index(r, l, l->start);
 	turns = 0;
+	start = get_nodes_index(r, l, l->start);
 	fta_append(&sol, &start, 1);
 	while (pathfinder(&route, l->nb_rooms, &sol, get_nodes_index(r, l, l->end)))
 	{
@@ -125,9 +125,9 @@ int				ft_pathfinding(char **map, t_lem_in *l)
 {
 	t_node		*rooms;
 	int			**route;
-	t_array		**sols;
-	t_array		cmds;
 	int			nb_sols;
+	t_array		cmds;
+	t_array		**sols;
 
 	if (!(rooms = ft_init_nodes(l)))
 		return (-1);

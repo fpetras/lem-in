@@ -6,7 +6,7 @@
 #    By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/01 20:07:00 by rnugroho          #+#    #+#              #
-#    Updated: 2018/03/19 17:44:35 by fpetras          ###   ########.fr        #
+#    Updated: 2018/03/20 09:12:19 by fpetras          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ LFTDIR:=./libft
 # ==================
 
 # ------------------
-COMPILER:=clang
+COMPILER:=gcc
 SRCPATH:=src/
 HDRPATH:=include/
 CCHPATH:=obj/
