@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 03:09:29 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/20 09:17:06 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/03/21 12:53:36 by rnugroho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ static void		solutions_to_cmds(t_array **sols, t_array *cmds,
 	int		offset;
 	char	*temp;
 
-	row = 0;
-	while (row < turns_counter(sols, nb_ants, n))
+	row = -1;
+	while (++row < turns_counter(sols, nb_ants, n))
 	{
 		col = -1;
 		offset = 1;
@@ -87,8 +87,8 @@ static void		solutions_to_cmds(t_array **sols, t_array *cmds,
 			free(temp);
 		}
 		fta_append(cmds, "\n", 1);
-		row++;
 	}
+	fta_append(cmds, "\0", 1);
 }
 
 static int		run_pathfinder(int **route, t_array ***sols,
