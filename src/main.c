@@ -6,7 +6,7 @@
 /*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 09:34:58 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/17 09:08:34 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/03/22 10:27:30 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,21 @@ static char	**ft_save_map(char *file)
 static char	**ft_read_map(void)
 {
 	int		ret;
+	int		total;
 	char	buf[BUFF_SIZE + 1];
 	char	*file[2];
 
+	total = 0;
 	file[0] = ft_strnew(0);
 	while ((ret = read(g_fd, &buf, BUFF_SIZE)) > 0)
 	{
+		total += ret;
 		buf[ret] = '\0';
 		file[1] = file[0];
 		file[0] = ft_strjoin(file[1], buf);
 		free(file[1]);
-		if (file[0][0] != '#' && file[0][0] != '+' && !ft_isdigit(file[0][0]))
+		if ((file[0][0] != '#' && file[0][0] != '+' && !ft_isdigit(file[0][0]))
+			|| total > MAX_FILESIZE)
 		{
 			free(file[0]);
 			return (NULL);

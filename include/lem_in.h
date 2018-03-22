@@ -6,7 +6,7 @@
 /*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/04 09:32:55 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/18 10:50:46 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/03/22 10:26:15 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 
 # include "libft.h"
 
-# define START	1
-# define END	2
-# define ROOM	1
-# define LINK	2
-# define W		100
-# define H		25
+# define MAX_FILESIZE	500000
+# define START			1
+# define END			2
+# define ROOM			1
+# define LINK			2
+# define W				100
+# define H				25
 # define ARRAY_DATA(D, I) ((int*)(D)->data)[I]
 
 int					g_option_v;

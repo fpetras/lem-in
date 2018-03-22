@@ -6,7 +6,7 @@
 /*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/08 10:14:10 by fpetras           #+#    #+#             */
-/*   Updated: 2018/03/17 08:30:57 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/03/22 11:15:25 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@ int		ft_check_coordinates(t_lem_in *l)
 	int		ret;
 	char	**split;
 
-	i = 0;
+	i = -1;
 	ret = 0;
-	while (l->rooms[i])
+	while (l->rooms[++i])
 	{
 		j = 1;
-		split = ft_strsplit(l->rooms[i], ' ');
+		if ((split = ft_strsplit(l->rooms[i], ' ')) == NULL)
+			return (-1);
 		if (ft_tablen(split) != 3)
 			ret = -1;
 		while (split[j])
@@ -34,7 +35,6 @@ int		ft_check_coordinates(t_lem_in *l)
 			j++;
 		}
 		ft_free_tab(split, 0);
-		i++;
 		if (ret == -1)
 			break ;
 	}
