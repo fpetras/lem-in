@@ -6,7 +6,7 @@
 /*   By: rnugroho <rnugroho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/13 18:14:31 by rnugroho          #+#    #+#             */
-/*   Updated: 2018/03/19 16:17:16 by rnugroho         ###   ########.fr       */
+/*   Updated: 2018/03/22 10:37:53 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,16 @@ void		run_print_map(int **routetab, t_lem_in *l,
 
 	i = 0;
 	reset_route(routetab, l->nb_rooms);
-	cmds = ft_strsplit(((char*)a_cmds.data), '\n');
+	if ((cmds = ft_strsplit(((char*)a_cmds.data), '\n')) == NULL)
+		return ;
 	while (cmds[++i])
 	{
 		icmds = ft_strsplit(cmds[i], ' ');
-		j = 0;
-		while (j < ft_wordcounter(cmds[i], ' '))
+		j = -1;
+		while (++j < ft_wordcounter(cmds[i], ' '))
 		{
 			color_map(&routetab, l->nb_rooms,
 			get_prev_node(cmds, i, j, 1), ft_atoi(icmds[j]));
-			j++;
 		}
 		ft_strtab_free(icmds);
 		ft_printf("\033[H\033[J");
